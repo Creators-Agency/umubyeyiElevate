@@ -17,17 +17,23 @@ use App\Http\Controllers\ProgramPackageController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', [CategoryController::class, 'index']);
-Route::get('/', [ChatController::class, 'index']);
-Route::get('/', [ChatMessageController::class, 'index']);
-Route::get('/', [PackageController::class, 'index']);
-Route::get('/', [PageController::class, 'index']);
-Route::get('/', [PaymentController::class, 'index']);
-Route::get('/', [PriviledgeController::class, 'index']);
-Route::get('/', [ProgramCategoryController::class, 'index']);
-Route::get('/', [ProgramContentController::class, 'index']);
-Route::get('/', [ProgramContentUploadController::class, 'index']);
-Route::get('/', [ProgramController::class, 'index']);
-Route::get('/', [ProgramPackageController::class, 'index']);
-Route::get('/', [SubscriptionController::class, 'index']);
-Route::get('/', [UserController::class, 'index']);
+Route::get('/', function () {
+    return response()->json([
+        "message" => "Welcome to Elevate API"
+    ]);
+});
+
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/chats', [ChatController::class, 'index']);
+Route::get('/chat-messages', [ChatMessageController::class, 'index']);
+Route::get('/packages', [PackageController::class, 'index']);
+Route::get('/pages', [PageController::class, 'index']);
+Route::get('/payments', [PaymentController::class, 'index']);
+Route::get('/priviledges', [PriviledgeController::class, 'index']);
+Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
+Route::get('/program-contents', [ProgramContentController::class, 'index']);
+Route::get('/program-content-uploads', [ProgramContentUploadController::class, 'index']);
+Route::get('/programs', [ProgramController::class, 'index']);
+Route::get('/program-packages', [ProgramPackageController::class, 'index']);
+Route::get('/subscriptions', [SubscriptionController::class, 'index']);
+Route::get('/users', [UserController::class, 'index']);

@@ -13,7 +13,9 @@ class ProgramContentController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 
     /**
@@ -23,7 +25,9 @@ class ProgramContentController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 
     /**
@@ -34,7 +38,9 @@ class ProgramContentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 
     /**
@@ -45,7 +51,9 @@ class ProgramContentController extends Controller
      */
     public function show($id)
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 
     /**
@@ -56,7 +64,9 @@ class ProgramContentController extends Controller
      */
     public function edit($id)
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 
     /**
@@ -68,7 +78,9 @@ class ProgramContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 
     /**
@@ -79,6 +91,8 @@ class ProgramContentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return response()->json([
+            "message" => "Welcome to Elevate API - Program Content"
+        ]);
     }
 }
