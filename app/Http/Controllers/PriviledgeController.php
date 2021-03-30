@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use DB;
+use Auth;
+use Cache;
+use Redirect;
+use Validator;
+
+use App\Models\Priviledge;
 
 class PriviledgeController extends Controller
 {
@@ -13,8 +22,10 @@ class PriviledgeController extends Controller
      */
     public function index()
     {
+        $priviledges = Priviledge::all();
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Data Found - Priviledge",
+            "payload" => $priviledges
         ]);
     }
 
@@ -26,7 +37,7 @@ class PriviledgeController extends Controller
     public function create()
     {
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Welcome to Elevate API - Priviledge"
         ]);
     }
 
@@ -38,8 +49,14 @@ class PriviledgeController extends Controller
      */
     public function store(Request $request)
     {
+        $priviledge = new Priviledge();
+        $priviledge->title = request()->title;
+        $priviledge->status = request()->status;
+        $priviledge->save();
+
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Data Created - Priviledge",
+            "payload" => $priviledge
         ]);
     }
 
@@ -51,8 +68,11 @@ class PriviledgeController extends Controller
      */
     public function show($id)
     {
+        $priviledge = Priviledge::find($id);
+
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Data Found - Priviledge",
+            "payload" => $priviledge
         ]);
     }
 
@@ -65,7 +85,7 @@ class PriviledgeController extends Controller
     public function edit($id)
     {
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Welcome to Elevate API - Priviledge"
         ]);
     }
 
@@ -78,8 +98,14 @@ class PriviledgeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $priviledge = Priviledge::find($id);
+        $priviledge->title = request()->title;
+        $priviledge->status = request()->status;
+        $priviledge->save();
+
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Data Updated - Priviledge",
+            "payload" => $priviledge
         ]);
     }
 
@@ -91,8 +117,11 @@ class PriviledgeController extends Controller
      */
     public function destroy($id)
     {
+        $priviledge = Priviledge::find($id);
+        $priviledge->delete();
+
         return response()->json([
-            "message" => "Welcome to Elevate API - Priveledge"
+            "message" => "Data Deleted - Priviledge"
         ]);
     }
 }

@@ -29,7 +29,15 @@ Route::get('/chat-messages', [ChatMessageController::class, 'index']);
 Route::get('/packages', [PackageController::class, 'index']);
 Route::get('/pages', [PageController::class, 'index']);
 Route::get('/payments', [PaymentController::class, 'index']);
-Route::get('/priviledges', [PriviledgeController::class, 'index']);
+
+Route::prefix('priviledges')->group(function () {
+    Route::get('/', [PriviledgeController::class, 'index']);
+    Route::get('/{id}', [PriviledgeController::class, 'show']);
+    Route::post('/', [PriviledgeController::class, 'store']);
+    Route::put('/{id}', [PriviledgeController::class, 'update']);
+    Route::delete('/{id}', [PriviledgeController::class, 'destroy']);
+});
+
 Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
 Route::get('/program-contents', [ProgramContentController::class, 'index']);
 Route::get('/program-content-uploads', [ProgramContentUploadController::class, 'index']);

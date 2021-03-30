@@ -3,6 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use DB;
+use Auth;
+use Cache;
+use Redirect;
+use Validator;
+
+use App\Models\User;
 
 class UserController extends Controller
 {
