@@ -19,45 +19,33 @@
                 </a>
             </li>
             <li>
-                <a href="{{URL::to('/category/list')}}">
+                <a href="{{URL::to('admin/category/list')}}">
                     <i class="nc-icon nc-diamond"></i>
                     <p>Category</p>
                 </a>
             </li>
             <li>
-                <a href="./map.html">
+                <a href="{{URL::to('admin/package/list')}}">
                     <i class="nc-icon nc-pin-3"></i>
-                    <p>Maps</p>
+                    <p>Package</p>
                 </a>
             </li>
             <li>
-                <a href="./notifications.html">
+                <a href="{{URL::to('admin/page/list')}}">
                     <i class="nc-icon nc-bell-55"></i>
-                    <p>Notifications</p>
+                    <p>Page</p>
                 </a>
             </li>
             <li>
-                <a href="./user.html">
+                <a href="{{URL::to('admin/program/list')}}">
                     <i class="nc-icon nc-single-02"></i>
-                    <p>User Profile</p>
+                    <p>Program</p>
                 </a>
             </li>
             <li>
                 <a href="./tables.html">
                     <i class="nc-icon nc-tile-56"></i>
-                    <p>Table List</p>
-                </a>
-            </li>
-            <li>
-                <a href="./typography.html">
-                    <i class="nc-icon nc-caps-small"></i>
-                    <p>Typography</p>
-                </a>
-            </li>
-            <li class="active-pro">
-                <a href="./upgrade.html">
-                    <i class="nc-icon nc-spaceship"></i>
-                    <p>Upgrade to PRO</p>
+                    <p>Account</p>
                 </a>
             </li>
         </ul>
