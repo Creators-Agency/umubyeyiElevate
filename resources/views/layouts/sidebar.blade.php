@@ -13,15 +13,15 @@
     <div class="sidebar-wrapper">
         <ul class="nav">
             <li class="active ">
-                <a href="./dashboard.html">
+                <a href="/">
                     <i class="nc-icon nc-bank"></i>
                     <p>Dashboard</p>
                 </a>
             </li>
             <li>
-                <a href="./icons.html">
+                <a href="{{URL::to('/category/list')}}">
                     <i class="nc-icon nc-diamond"></i>
-                    <p>Icons</p>
+                    <p>Category</p>
                 </a>
             </li>
             <li>

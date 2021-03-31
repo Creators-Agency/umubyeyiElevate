@@ -17,3 +17,5 @@
  <link href="{{URL::asset('dashboard/assets/css/paper-dashboard.css?v=2.0.1')}}" rel="stylesheet" />
  <!-- CSS Just for demo purpose, don't include it in your project -->
  <link href="{{URL::asset('dashboard/assets/demo/demo.css')}}" rel="stylesheet" />
+ <link href="{{ URL::asset('summernote/summernote-lite.css') }}" rel="stylesheet" />
+ <link href="{{ URL::asset('summernote/tam-emoji/css/emoji.css') }}" rel="stylesheet" />

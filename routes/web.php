@@ -8,3 +8,9 @@ Route::get('/', function () {
     // ]);
     return view('dashboard');
 });
+Route::get('/category', function () {
+    // return response()->json([
+    //     "message" => "Welcome to Elevate API"
+    // ]);
+    return view('category.add');
+});
