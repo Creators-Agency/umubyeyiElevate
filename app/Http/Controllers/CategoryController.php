@@ -22,6 +22,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        return view('category.add');
         return response()->json([
             "message" => "Welcome to Elevate API - Category"
         ]);
@@ -47,9 +48,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Category"
-        ]);
+        return $request;
+        // return response()->json([
+        //     "message" => "Welcome to Elevate API - Category"
+        // ]);
     }
 
     /**

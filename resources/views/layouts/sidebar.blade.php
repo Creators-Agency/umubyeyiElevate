@@ -1,13 +1,13 @@
 <div class="sidebar" data-color="white" data-active-color="danger">
     <div class="logo">
-        <a href="https://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="/" class="simple-text logo-mini">
             <div class="logo-image-small">
-                <img src="../assets/img/logo-small.png">
+                <img src="{{URL::asset('dashboard/assets/img/logo-small.png')}}">
             </div>
             <!-- <p>CT</p> -->
         </a>
-        <a href="https://www.creative-tim.com" class="simple-text logo-normal">
-            Creative Tim
+        <a href="/" class="simple-text logo-normal">
+            UE
         </a>
     </div>
     <div class="sidebar-wrapper">
@@ -43,7 +43,7 @@
                 </a>
             </li>
             <li>
-                <a href="./tables.html">
+                <a href="{{URL::to('/account/list')}}">
                     <i class="nc-icon nc-tile-56"></i>
                     <p>Account</p>
                 </a>

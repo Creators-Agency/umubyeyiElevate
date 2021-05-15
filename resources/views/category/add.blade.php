@@ -8,12 +8,14 @@
                     <h5 class="card-title">Add Category</h5>
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form method="POST" action="{{ route('CreateCategory') }}">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 pr-1">
                                 <div class="form-group">
                                     <label>Category Name</label>
-                                    <input type="text" class="form-control" placeholder="Category Name">
+                                    <input type="text" name="categoryName" class="form-control"
+                                        placeholder="Category Name">
                                 </div>
                             </div>
                             <div class="col-md-6 px-1">
@@ -30,7 +32,8 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>About Me</label>
-                                    <textarea class="form-control textarea summernote"></textarea>
+                                    <textarea name="categoryDescription"
+                                        class="form-control textarea summernote"></textarea>
                                 </div>
                             </div>
                         </div>
