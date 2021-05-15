@@ -7,7 +7,7 @@ Route::get('/', function () {
     // return response()->json([
     //     "message" => "Welcome to Elevate API"
     // ]);
-    return view('dashboard');
+    return view('undermaintenance');
 });
 // Route::get('admin/category', function () {
 //     // return response()->json([
