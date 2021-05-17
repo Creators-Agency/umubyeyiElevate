@@ -23,6 +23,21 @@ Route::get('/', function () {
     ]);
 });
 
+Route::group([
+
+    'middleware' => 'api',
+    'namespace' => 'App\Http\Controllers',
+    'prefix' => 'auth'
+
+], function ($router) {
+
+    Route::post('login', 'AuthController@login');
+    Route::post('logout', 'AuthController@logout');
+    Route::post('refresh', 'AuthController@refresh');
+    Route::post('me', 'AuthController@me');
+
+});
+
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chat-messages', [ChatMessageController::class, 'index']);
