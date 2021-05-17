@@ -53,6 +53,53 @@ Route::prefix('priviledges')->group(function () {
     Route::delete('/{id}', [PriviledgeController::class, 'destroy']);
 });
 
+Route::prefix('programs')->group(function () {
+    Route::get('/', [CompanyController::class, 'list']);
+    Route::get('/{id}', [CompanyController::class, 'fetch']);
+    Route::post('/', [CompanyController::class, 'store']);
+    Route::put('/{id}', [CompanyController::class, 'update']);
+    Route::delete('/{id}', [CompanyController::class, 'delete']);
+});
+Route::prefix('categories')->group(function () {
+    Route::get('/{programs_id}/view/', [ProgramCategoryController::class, 'list']);
+    Route::get('/{programs_id}/view/{id}', [ProgramCategoryController::class, 'fetch']);
+    Route::post('/', [ProgramCategoryController::class, 'store']);
+    Route::put('/{id}', [ProgramCategoryController::class, 'update']);
+    Route::delete('/{id}', [ProgramCategoryController::class, 'delete']);
+});
+
+Route::prefix('contents')->group(function () {
+    Route::get('/{programs_id}/view/', [ProgramContentController::class, 'list']);
+    Route::get('/{programs_id}/view/{id}', [ProgramContentController::class, 'fetch']);
+    Route::post('/', [ProgramContentController::class, 'store']);
+    Route::put('/{id}', [ProgramContentController::class, 'update']);
+    Route::delete('/{id}', [ProgramContentController::class, 'delete']);
+});
+
+Route::prefix('packages')->group(function () {
+    Route::get('/{programs_id}/view/', [ProgramPackageController::class, 'list']);
+    Route::get('/{programs_id}/view/{id}', [ProgramPackageController::class, 'fetch']);
+    Route::post('/', [ProgramPackageController::class, 'store']);
+    Route::put('/{id}', [ProgramPackageController::class, 'update']);
+    Route::delete('/{id}', [ProgramPackageController::class, 'delete']);
+});
+
+// Route::prefix('packages')->group(function () {
+//     Route::get('/{programs_id}/view/', [PackageController::class, 'list']);
+//     Route::get('/{programs_id}/view/{id}', [PackageController::class, 'fetch']);
+//     Route::post('/', [PackageController::class, 'store']);
+//     Route::put('/{id}', [PackageController::class, 'update']);
+//     Route::delete('/{id}', [PackageController::class, 'delete']);
+// });
+
+Route::prefix('uploads')->group(function () {
+    Route::get('/{programs_id}/view/{content_id}/view', [ProgramContentUploadController::class, 'list']);
+    Route::get('/{programs_id}/view/{content_id}/view/{id}', [ProgramContentUploadController::class, 'fetch']);
+    Route::post('/', [ProgramContentUploadController::class, 'store']);
+    Route::put('/{id}', [ProgramContentUploadController::class, 'update']);
+    Route::delete('/{id}', [ProgramContentUploadController::class, 'delete']);
+});
+
 Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
 Route::get('/program-contents', [ProgramContentController::class, 'index']);
 Route::get('/program-content-uploads', [ProgramContentUploadController::class, 'index']);
