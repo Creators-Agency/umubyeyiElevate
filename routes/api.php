@@ -38,13 +38,6 @@ Route::group([
 
 });
 
-Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/chats', [ChatController::class, 'index']);
-Route::get('/chat-messages', [ChatMessageController::class, 'index']);
-Route::get('/packages', [PackageController::class, 'index']);
-Route::get('/pages', [PageController::class, 'index']);
-Route::get('/payments', [PaymentController::class, 'index']);
-
 Route::prefix('priviledges')->group(function () {
     Route::get('/', [PriviledgeController::class, 'index']);
     Route::get('/{id}', [PriviledgeController::class, 'show']);
@@ -54,14 +47,14 @@ Route::prefix('priviledges')->group(function () {
 });
 
 Route::prefix('programs')->group(function () {
-    Route::get('/', [CompanyController::class, 'list']);
+    Route::get('/', [CompanyController::class, 'index']);
     Route::get('/{id}', [CompanyController::class, 'fetch']);
     Route::post('/', [CompanyController::class, 'store']);
     Route::put('/{id}', [CompanyController::class, 'update']);
     Route::delete('/{id}', [CompanyController::class, 'delete']);
 });
 Route::prefix('categories')->group(function () {
-    Route::get('/{programs_id}/view/', [ProgramCategoryController::class, 'list']);
+    Route::get('/{programs_id}/view/', [ProgramCategoryController::class, 'index']);
     Route::get('/{programs_id}/view/{id}', [ProgramCategoryController::class, 'fetch']);
     Route::post('/', [ProgramCategoryController::class, 'store']);
     Route::put('/{id}', [ProgramCategoryController::class, 'update']);
@@ -69,7 +62,7 @@ Route::prefix('categories')->group(function () {
 });
 
 Route::prefix('contents')->group(function () {
-    Route::get('/{programs_id}/view/', [ProgramContentController::class, 'list']);
+    Route::get('/{programs_id}/view/', [ProgramContentController::class, 'index']);
     Route::get('/{programs_id}/view/{id}', [ProgramContentController::class, 'fetch']);
     Route::post('/', [ProgramContentController::class, 'store']);
     Route::put('/{id}', [ProgramContentController::class, 'update']);
@@ -77,7 +70,7 @@ Route::prefix('contents')->group(function () {
 });
 
 Route::prefix('packages')->group(function () {
-    Route::get('/{programs_id}/view/', [ProgramPackageController::class, 'list']);
+    Route::get('/{programs_id}/view/', [ProgramPackageController::class, 'index']);
     Route::get('/{programs_id}/view/{id}', [ProgramPackageController::class, 'fetch']);
     Route::post('/', [ProgramPackageController::class, 'store']);
     Route::put('/{id}', [ProgramPackageController::class, 'update']);
@@ -85,7 +78,7 @@ Route::prefix('packages')->group(function () {
 });
 
 // Route::prefix('packages')->group(function () {
-//     Route::get('/{programs_id}/view/', [PackageController::class, 'list']);
+//     Route::get('/{programs_id}/view/', [PackageController::class, 'index']);
 //     Route::get('/{programs_id}/view/{id}', [PackageController::class, 'fetch']);
 //     Route::post('/', [PackageController::class, 'store']);
 //     Route::put('/{id}', [PackageController::class, 'update']);
@@ -93,17 +86,23 @@ Route::prefix('packages')->group(function () {
 // });
 
 Route::prefix('uploads')->group(function () {
-    Route::get('/{programs_id}/view/{content_id}/view', [ProgramContentUploadController::class, 'list']);
+    Route::get('/{programs_id}/view/{content_id}/view', [ProgramContentUploadController::class, 'index']);
     Route::get('/{programs_id}/view/{content_id}/view/{id}', [ProgramContentUploadController::class, 'fetch']);
     Route::post('/', [ProgramContentUploadController::class, 'store']);
     Route::put('/{id}', [ProgramContentUploadController::class, 'update']);
     Route::delete('/{id}', [ProgramContentUploadController::class, 'delete']);
 });
 
-Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
-Route::get('/program-contents', [ProgramContentController::class, 'index']);
-Route::get('/program-content-uploads', [ProgramContentUploadController::class, 'index']);
-Route::get('/programs', [ProgramController::class, 'index']);
+// Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
+// Route::get('/program-contents', [ProgramContentController::class, 'index']);
+// Route::get('/program-content-uploads', [ProgramContentUploadController::class, 'index']);
+// Route::get('/programs', [ProgramController::class, 'index']);
 Route::get('/program-packages', [ProgramPackageController::class, 'index']);
 Route::get('/subscriptions', [SubscriptionController::class, 'index']);
 Route::get('/users', [UserController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/chats', [ChatController::class, 'index']);
+Route::get('/chat-messages', [ChatMessageController::class, 'index']);
+Route::get('/packages', [PackageController::class, 'index']);
+Route::get('/pages', [PageController::class, 'index']);
+Route::get('/payments', [PaymentController::class, 'index']);
