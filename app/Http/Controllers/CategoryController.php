@@ -22,10 +22,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $programs = Program::get();
+        $categories = category::get();
         return response()->json([
-            'message' => 'Successfuly Fetched all programs',
-            'payload' => $programs,
+            'message' => 'Successfuly Fetched all categorys',
+            'payload' => $categories,
             'status' => 200,
         ]);
     }
@@ -36,26 +36,26 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(REQUEST $request)
+    public function store(REQUEST $request)
     {
         /**
          * Validate
          */
-        $program = new Program();
-        $program->title=$request->title;
-        $program->description=$request->description;
-        $program->picture_url=$request->picture_url;
-        $program->status=$request->status;
-        $program->user_id=$request->user_id;
-        if($program->save()){
+        $category = new Category();
+        $category->title=$request->title;
+        $category->description=$request->description;
+        $category->picture_url=$request->picture_url;
+        $category->status=$request->status;
+        $category->user_id=$request->user_id;
+        if($category->save()){
             return response()->json([
-                'message' => 'Successfuly Fetched all programs',
-                'payload' => $program,
+                'message' => 'Successfuly Fetched all categorys',
+                'payload' => $category,
                 'status' => 201,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to create a program',
+                'message' => 'Failed to create a category',
                 'payload' => $request,
                 'status' => 501,
             ]);
@@ -71,16 +71,16 @@ class CategoryController extends Controller
      */
     public function fetch($id)
     {
-        $program = Program::find($id);
-        if($program){
+        $category = Category::find($id);
+        if($category){
             return response()->json([
-                'message' => 'Successfully fetched a program by ID: '.$id,
-                'payload' => $program,
+                'message' => 'Successfully fetched a category by ID: '.$id,
+                'payload' => $category,
                 'status' => 200,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to fetch a program by ID: '.$id,
+                'message' => 'Failed to fetch a category by ID: '.$id,
                 'payload' => [],
                 'status' => 500,
             ]);
@@ -96,16 +96,16 @@ class CategoryController extends Controller
      */
     public function update(REQUEST $request,$id)
     {
-        $program = Program::where(['id' => $id])->update($request);
-        if($program){
+        $category = Category::where(['id' => $id])->update($request);
+        if($category){
             return response()->json([
-                'message' => 'Successfully Updated a program by ID: '.$id,
-                'payload' => $program,
+                'message' => 'Successfully Updated a category by ID: '.$id,
+                'payload' => $category,
                 'status' => 200,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to update a program by ID: '.$id,
+                'message' => 'Failed to update a category by ID: '.$id,
                 'payload' => $request,
                 'status' => 500,
             ]);
@@ -122,16 +122,16 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $program = Program::where(['id' => $id])->update('status',0);
-        if($program){
+        $category = Category::where(['id' => $id])->update('status',0);
+        if($category){
             return response()->json([
-                'message' => 'Successfully delete a program by id: '.$id,
-                'payload' => $program,
+                'message' => 'Successfully delete a category by id: '.$id,
+                'payload' => $category,
                 'status' => 200,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to delete a program',
+                'message' => 'Failed to delete a category',
                 'payload' => array(
                     'id' => $id
                 ),

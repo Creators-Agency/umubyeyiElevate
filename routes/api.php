@@ -77,8 +77,8 @@ Route::prefix('categories')->group(function () {
 });
 
 Route::prefix('contents')->group(function () {
-    Route::get('/{program_id}/view/', [ProgramContentController::class, 'index']);
-    Route::get('/{program_id}/view/{id}', [ProgramContentController::class, 'fetch']);
+    Route::get('/{program_id}/view/{category_id}/view/', [ProgramContentController::class, 'index']);
+    Route::get('/{program_id}/view/{category_id}/view/{id}', [ProgramContentController::class, 'fetch']);
     Route::post('/', [ProgramContentController::class, 'store']);
     Route::put('/{id}', [ProgramContentController::class, 'update']);
     Route::delete('/{id}', [ProgramContentController::class, 'delete']);

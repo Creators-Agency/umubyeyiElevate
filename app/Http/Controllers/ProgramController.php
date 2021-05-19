@@ -36,7 +36,7 @@ class ProgramController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create(REQUEST $request)
+    public function store(REQUEST $request)
     {
         /**
          * Validate
