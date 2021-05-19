@@ -61,6 +61,13 @@ Route::prefix('priviledges')->group(function () {
     Route::delete('/{id}', [PriviledgeController::class, 'destroy']);
 });
 
+Route::prefix('category')->group(function () {
+    Route::get('/', [CategoryController ::class, 'index']);
+    Route::get('/{id}', [CategoryController::class, 'fetch']);
+    Route::post('/', [CategoryController::class, 'store']);
+    Route::put('/{id}', [CategoryController::class, 'update']);
+    Route::delete('/{id}', [CategoryController::class, 'delete']);
+});
 Route::prefix('programs')->group(function () {
     Route::get('/', [ProgramController::class, 'index']);
     Route::get('/{id}', [ProgramController::class, 'fetch']);
@@ -132,7 +139,7 @@ Route::prefix('uploads')->group(function () {
 // Route::get('/program-packages', [ProgramPackageController::class, 'index']);
 // Route::get('/subscriptions', [SubscriptionController::class, 'index']);
 Route::get('/users', [UserController::class, 'index']);
-Route::get('/categories', [CategoryController::class, 'index']);
+// Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chat-messages', [ChatMessageController::class, 'index']);
 // Route::get('/packages', [PackageController::class, 'index']);

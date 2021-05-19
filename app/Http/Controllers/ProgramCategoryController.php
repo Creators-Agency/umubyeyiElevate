@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,20 +23,11 @@ class ProgramCategoryController extends Controller
      */
     public function index()
     {
+        $categories = Category::get();
         return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
+            'message' => 'Successfuly Fetched all categorys',
+            'payload' => $categories,
+            'status' => 200,
         ]);
     }
 
@@ -45,11 +37,31 @@ class ProgramCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(REQUEST $request)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
-        ]);
+        /**
+         * Validate
+         */
+        $category = new Category();
+        $category->title=$request->title;
+        $category->description=$request->description;
+        $category->picture_url=$request->picture_url;
+        $category->status=$request->status;
+        $category->user_id=$request->user_id;
+        if($category->save()){
+            return response()->json([
+                'message' => 'Successfuly Fetched all categorys',
+                'payload' => $category,
+                'status' => 201,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create a category',
+                'payload' => $request,
+                'status' => 501,
+            ]);
+        }
+         
     }
 
     /**
@@ -58,24 +70,22 @@ class ProgramCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function fetch($id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
-        ]);
+        $category = Category::find($id);
+        if($category){
+            return response()->json([
+                'message' => 'Successfully fetched a category by ID: '.$id,
+                'payload' => $category,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to fetch a category by ID: '.$id,
+                'payload' => [],
+                'status' => 500,
+            ]);
+        }
     }
 
     /**
@@ -85,12 +95,25 @@ class ProgramCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(REQUEST $request,$id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
-        ]);
+        $category = Category::where(['id' => $id])->update($request);
+        if($category){
+            return response()->json([
+                'message' => 'Successfully Updated a category by ID: '.$id,
+                'payload' => $category,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to update a category by ID: '.$id,
+                'payload' => $request,
+                'status' => 500,
+            ]);
+        }
+        
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -100,8 +123,21 @@ class ProgramCategoryController extends Controller
      */
     public function destroy($id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Category"
-        ]);
+        $category = Category::where(['id' => $id])->update('status',0);
+        if($category){
+            return response()->json([
+                'message' => 'Successfully delete a category by id: '.$id,
+                'payload' => $category,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to delete a category',
+                'payload' => array(
+                    'id' => $id
+                ),
+                'status' => 500,
+            ]);
+        }
     }
 }
