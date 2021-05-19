@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('location');
             $table->date('dob');
             $table->string('picture_url');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->foreignId('priviledge_id');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

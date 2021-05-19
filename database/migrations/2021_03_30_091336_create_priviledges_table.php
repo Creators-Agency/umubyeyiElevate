@@ -16,7 +16,7 @@ class CreatePriviledgesTable extends Migration
         Schema::create('priviledges', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('status');
+            $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

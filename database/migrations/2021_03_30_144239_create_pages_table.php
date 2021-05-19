@@ -17,7 +17,7 @@ class CreatePagesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->foreignId('page_id')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();

@@ -17,7 +17,7 @@ class CreateProgramContentUploadsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('upload_url');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->foreignId('program_content_id');
             $table->foreignId('user_id');
             $table->timestamps();

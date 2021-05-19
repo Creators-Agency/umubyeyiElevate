@@ -17,7 +17,7 @@ class CreatePaymentsTable extends Migration
             $table->id();
             $table->integer('amount');
             $table->integer('transactionID');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->foreignId('user_id');
             $table->timestamps();
             $table->softDeletes();

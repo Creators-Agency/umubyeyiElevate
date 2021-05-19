@@ -19,7 +19,7 @@ class CreatePackagesTable extends Migration
             $table->text('description');
             $table->integer('price');
             $table->integer('duration');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->foreignId('user_id');
             $table->timestamps();
             $table->softDeletes();

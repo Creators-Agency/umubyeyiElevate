@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->foreignId('category_id')->nullable();
             $table->foreignId('user_id');
             $table->timestamps();
