@@ -62,11 +62,11 @@ Route::prefix('priviledges')->group(function () {
 });
 
 Route::prefix('programs')->group(function () {
-    Route::get('/', [CompanyController::class, 'index']);
-    Route::get('/{id}', [CompanyController::class, 'fetch']);
-    Route::post('/', [CompanyController::class, 'store']);
-    Route::put('/{id}', [CompanyController::class, 'update']);
-    Route::delete('/{id}', [CompanyController::class, 'delete']);
+    Route::get('/', [ProgramController::class, 'index']);
+    Route::get('/{id}', [ProgramController::class, 'fetch']);
+    Route::post('/', [ProgramController::class, 'store']);
+    Route::put('/{id}', [ProgramController::class, 'update']);
+    Route::delete('/{id}', [ProgramController::class, 'delete']);
 });
 Route::prefix('categories')->group(function () {
     Route::get('/{program_id}/view/', [ProgramCategoryController::class, 'index']);
