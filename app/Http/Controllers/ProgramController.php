@@ -45,7 +45,6 @@ class ProgramController extends Controller
         $program->title=$request->title;
         $program->description=$request->description;
         $program->picture_url=$request->picture_url;
-        $program->status=$request->status;
         $program->user_id=$request->user_id;
         if($program->save()){
             return response()->json([
