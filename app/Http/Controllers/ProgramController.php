@@ -26,7 +26,7 @@ class ProgramController extends Controller
         return response()->json([
             'message' => 'Successfuly Fetched all programs',
             'payload' => $programs,
-            'status' => 201,
+            'status' => 200,
         ]);
     }
 
