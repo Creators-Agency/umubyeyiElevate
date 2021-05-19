@@ -119,7 +119,7 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
         $program = Program::where(['id' => $id])->update('status',0);
         if($program){
