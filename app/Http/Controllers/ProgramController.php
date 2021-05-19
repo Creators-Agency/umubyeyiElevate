@@ -101,11 +101,6 @@ class ProgramController extends Controller
         $updatedProgram = Program::find($id);
         $updatedProgram->title = $request->title;
         $updatedProgram->save();
-
-        //     'title' => $request->title,
-        //     'description' => $request->description,
-        //     'picture_url' =>  $request->picture_url
-        // ]);
         if($updatedProgram){
             return response()->json([
                 'message' => 'Successfully Updated a program by ID: '.$id,
@@ -131,11 +126,12 @@ class ProgramController extends Controller
      */
     public function delete($id)
     {
-        $program = Program::where(['id' => $id])->update('status',0);
-        if($program){
+        $deleteProgram = Program::find($id);
+        $deleteProgram->status=0;
+        if($deleteProgram){
             return response()->json([
                 'message' => 'Successfully delete a program by id: '.$id,
-                'payload' => $program,
+                'payload' => $deleteProgram,
                 'status' => 200,
             ]);
         }else{
