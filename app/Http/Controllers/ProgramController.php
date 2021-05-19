@@ -46,6 +46,8 @@ class ProgramController extends Controller
         $program->description=$request->description;
         $program->picture_url=$request->picture_url;
         $program->user_id=$request->user_id;
+        $program->status=$request->status;
+
         if($program->save()){
             return response()->json([
                 'message' => 'Successfuly Fetched all programs',
@@ -95,21 +97,25 @@ class ProgramController extends Controller
      */
     public function update(REQUEST $request,$id)
     {
-        $program = Program::where(['id' => $id])->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'picture_url' =>  $request->picture_url
-        ]);
-        if($program){
+        // return $request;
+        $updatedProgram = Program::find($id);
+        $updatedProgram->title = $request->title;
+        $updatedProgram->save();
+
+        //     'title' => $request->title,
+        //     'description' => $request->description,
+        //     'picture_url' =>  $request->picture_url
+        // ]);
+        if($updatedProgram){
             return response()->json([
                 'message' => 'Successfully Updated a program by ID: '.$id,
-                'payload' => $program,
+                'payload' => $updatedProgram,
                 'status' => 200,
             ]);
         }else{
             return response()->json([
                 'message' => 'Failed to update a program by ID: '.$id,
-                'payload' => $request,
+                'payload' => $updatedProgram,
                 'status' => 500,
             ]);
         }
