@@ -69,7 +69,7 @@ class ProgramController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function fetch($id)
     {
         $program = Program::find($id);
         if($program){
