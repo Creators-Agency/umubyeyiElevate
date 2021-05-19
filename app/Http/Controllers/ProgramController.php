@@ -95,7 +95,11 @@ class ProgramController extends Controller
      */
     public function update(REQUEST $request,$id)
     {
-        $program = Program::where(['id' => $id])->update($request);
+        $program = Program::where(['id' => $id])->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'picture_url' =>  $request->picture_url
+        ]);
         if($program){
             return response()->json([
                 'message' => 'Successfully Updated a program by ID: '.$id,
