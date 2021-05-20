@@ -17,7 +17,9 @@ class CreateSubscriptionsTable extends Migration
             $table->id();
             $table->date('start_on');
             $table->date('end_on');
-            $table->integer('is_expired');
+            // $table->integer('is_expired');
+            $table->integer('status')->default(0);
+            $table->string('transactionID');
             $table->foreignId('package_id');
             $table->foreignId('user_id');
             $table->timestamps();
