@@ -15,93 +15,106 @@ use App\Models\ProgramContent;
 
 class ProgramContentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+   public function index($program_id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
+        $ProgramContent = ProgramContent::where('program_id',$program_id)->get();
+        if ($ProgramContent) {
+            return response()->json([
+                'message' => 'Successfully fetched all content related to a category with id: '.$program_id,
+                'payload' => $ProgramContent,
+                'status' => 200,
+            ]);
+        }else {
+            return response()->json([
+                'message' => 'Failed to fetch all content related to a category with id: '.$program_id,
+                'payload' => $ProgramContent,
+                'status' => 500,
+            ]);
+        }
+        
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function fetch($program_id,$id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
+        $ProgramContent = ProgramContent::where(['program_id'=> $program_id,'id'=>$id])->first();
+        if (!Empty($ProgramContent)) {
+            return response()->json([
+                'message' => 'Successfully fetched content related to a category with id: '.$program_id,
+                'payload' => $ProgramContent,
+                'status' => 200,
+            ]);
+        }else {
+            return response()->json([
+                'message' => 'Failed to fetch content',
+                'payload' => [],
+                'status' => 404,
+            ]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(REQUEST $request)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
+
+        $ProgramContent = new ProgramContent();
+        $ProgramContent->content = $request->content;
+        $ProgramContent->status = $request->status;
+        $ProgramContent->program_id = $request->program_id;
+        $ProgramContent->user_id = $request->user_id;
+        if($ProgramContent->save()){
+            return response()->json([
+                'message' => 'Successfully created content related to a category with id: '.$request->program_id,
+                'payload' => $ProgramContent,
+                'status' => 201,
+            ]);
+        }else {
+            return response()->json([
+                'message' => 'Successfully created content related to a category with id: '.$request->program_id,
+                'payload' => $ProgramContent,
+                'status' => 501,
+            ]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(REQUEST $request,$id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
+
+        $ProgramContent = ProgramContent::find($id);
+        $ProgramContent->content = $request->content;
+        $ProgramContent->status = $request->status;
+        $ProgramContent->program_id = $request->program_id;
+        $ProgramContent->user_id = $request->user_id;
+        if($ProgramContent->save()){
+            return response()->json([
+                'message' => 'Successfully updated content related to a category with id: '.$id,
+                'payload' => $ProgramContent,
+                'status' => 201,
+            ]);
+        }else {
+            return response()->json([
+                'message' => 'Successfully created content related to a category with id: '.$request->program_id,
+                'payload' => $ProgramContent,
+                'status' => 501,
+            ]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function delete($id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Content"
-        ]);
+        $ProgramContent = ProgramContent::find($id);
+        $ProgramContent->status = 0;
+        if($ProgramContent->save()){
+            return response()->json([
+                'message' => 'Successfully deleted content related to a category with id: '.$id,
+                'payload' => $ProgramContent,
+                'status' => 201,
+            ]);
+        }else {
+            return response()->json([
+                'message' => 'Successfully created content related to a category with id: '.$id,
+                'payload' => $ProgramContent,
+                'status' => 501,
+            ]);
+        }
     }
 }

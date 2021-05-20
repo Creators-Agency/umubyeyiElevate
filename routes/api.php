@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryContentController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\CategoryController;
@@ -84,11 +85,17 @@ Route::prefix('categories')->group(function () {
 });
 
 Route::prefix('contents')->group(function () {
-    Route::get('/{program_id}/view/{category_id}/view/', [ProgramContentController::class, 'index']);
-    Route::get('/{program_id}/view/{category_id}/view/{id}', [ProgramContentController::class, 'fetch']);
-    Route::post('/', [ProgramContentController::class, 'store']);
-    Route::put('/{id}', [ProgramContentController::class, 'update']);
-    Route::delete('/{id}', [ProgramContentController::class, 'delete']);
+    Route::get('/category/{category_id}/view/', [CategoryContentController::class, 'index']);
+    Route::get('/category/{category_id}/view/{id}', [CategoryContentController::class, 'fetch']);
+    Route::post('/category', [CategoryContentController::class, 'store']);
+    Route::put('/{id}/category', [CategoryContentController::class, 'update']);
+    Route::delete('/{id}/category', [CategoryContentController::class, 'delete']);
+
+    Route::get('/program/{program_id}/view/', [ProgramContentController::class, 'index']);
+    Route::get('/program/{program_id}/view/{id}', [ProgramContentController::class, 'fetch']);
+    Route::post('/program', [ProgramContentController::class, 'store']);
+    Route::put('/{id}/program', [ProgramContentController::class, 'update']);
+    Route::delete('/{id}/program', [ProgramContentController::class, 'delete']);
 });
 
 Route::prefix('package')->group(function () {
