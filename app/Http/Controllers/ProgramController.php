@@ -100,6 +100,9 @@ class ProgramController extends Controller
         // return $request;
         $updatedProgram = Program::find($id);
         $updatedProgram->title = $request->title;
+        $updatedProgram->description = $request->description;
+        $updatedProgram->picture_url = $request->picture_url;
+        $updatedProgram->status = $request->status;
         $updatedProgram->save();
         if($updatedProgram){
             return response()->json([

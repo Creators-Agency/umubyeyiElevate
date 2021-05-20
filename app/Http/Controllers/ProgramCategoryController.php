@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\ProgramCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -12,8 +12,6 @@ use Cache;
 use Redirect;
 use Validator;
 
-use App\Models\ProgramCategory;
-
 class ProgramCategoryController extends Controller
 {
     /**
@@ -21,12 +19,31 @@ class ProgramCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($program_id)
     {
-        $categories = Category::get();
+        $ProgramCategory = DB::table('program_categories')
+                            ->join('categories','program_categories.category_id','categories.id')
+                            ->join('programs','program_categories.program_id','programs.id')
+                            ->where('programs.id',$program_id)
+                            ->select(
+                                'categories.title as categoryTitle',
+                                'categories.description as categoryDescription',
+                                'categories.status as categoryStatus',
+                                'categories.user_id as categoryCreatedBy',
+                                'categories.created_at as categoryCreated_at',
+                                'categories.updated_at as categoryUpdated_at',
+                                'programs.title as programsTitle',
+                                'programs.description as programDescription',
+                                'programs.picture_url as programPicture_url',
+                                'programs.status as programStatus',
+                                'programs.user_id as programCreatedBy',
+                                'programs.created_at as categoryCreated_at',
+                                'programs.updated_at as categoryUpdated_at',
+                            )
+                            ->get();
         return response()->json([
-            'message' => 'Successfuly Fetched all categorys',
-            'payload' => $categories,
+            'message' => 'Successfuly Fetched all ProgramCategorys',
+            'payload' => $ProgramCategory,
             'status' => 200,
         ]);
     }
@@ -42,21 +59,18 @@ class ProgramCategoryController extends Controller
         /**
          * Validate
          */
-        $category = new Category();
-        $category->title=$request->title;
-        $category->description=$request->description;
-        $category->picture_url=$request->picture_url;
-        $category->status=$request->status;
-        $category->user_id=$request->user_id;
-        if($category->save()){
+        $ProgramCategory = new ProgramCategory();
+        $ProgramCategory->program_id=$request->program_id;
+        $ProgramCategory->category_id=$request->category_id;
+        if($ProgramCategory->save()){
             return response()->json([
-                'message' => 'Successfuly Fetched all categorys',
-                'payload' => $category,
+                'message' => 'Successfuly created Category related to this program',
+                'payload' => $ProgramCategory,
                 'status' => 201,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to create a category',
+                'message' => 'Failed to create a Program Category',
                 'payload' => $request,
                 'status' => 501,
             ]);
@@ -70,18 +84,38 @@ class ProgramCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function fetch($id)
+    public function fetch($program_id,$id)
     {
-        $category = Category::find($id);
-        if($category){
+        $ProgramCategory = DB::table('program_categories')
+                            ->join('categories','program_categories.category_id','categories.id')
+                            ->join('programs','program_categories.program_id','programs.id')
+                            ->where('program_categories.id',$id)
+                            ->where('programs.id',$program_id)
+                            ->select(
+                                'categories.title as categoryTitle',
+                                'categories.description as categoryDescription',
+                                'categories.status as categoryStatus',
+                                'categories.user_id as categoryCreatedBy',
+                                'categories.created_at as categoryCreated_at',
+                                'categories.updated_at as categoryUpdated_at',
+                                'programs.title as programsTitle',
+                                'programs.description as programDescription',
+                                'programs.picture_url as programPicture_url',
+                                'programs.status as programStatus',
+                                'programs.user_id as programCreatedBy',
+                                'programs.created_at as categoryCreated_at',
+                                'programs.updated_at as categoryUpdated_at',
+                            )
+                            ->first();
+        if($ProgramCategory){
             return response()->json([
-                'message' => 'Successfully fetched a category by ID: '.$id,
-                'payload' => $category,
+                'message' => 'Successfully fetched a ProgramCategory by ID: '.$id,
+                'payload' => $ProgramCategory,
                 'status' => 200,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to fetch a category by ID: '.$id,
+                'message' => 'Failed to fetch a ProgramCategory by ID: '.$id,
                 'payload' => [],
                 'status' => 500,
             ]);
@@ -97,16 +131,19 @@ class ProgramCategoryController extends Controller
      */
     public function update(REQUEST $request,$id)
     {
-        $category = Category::where(['id' => $id])->update($request);
-        if($category){
+        $ProgramCategory = ProgramCategory::find($id);
+        $ProgramCategory->program_id=$request->program_id;
+        $ProgramCategory->category_id=$request->category_id;
+        $ProgramCategory->save();
+        if($ProgramCategory){
             return response()->json([
-                'message' => 'Successfully Updated a category by ID: '.$id,
-                'payload' => $category,
+                'message' => 'Successfully Updated a ProgramCategory by ID: '.$id,
+                'payload' => $ProgramCategory,
                 'status' => 200,
             ]);
         }else{
             return response()->json([
-                'message' => 'Failed to update a category by ID: '.$id,
+                'message' => 'Failed to update a ProgramCategory by ID: '.$id,
                 'payload' => $request,
                 'status' => 500,
             ]);
@@ -121,23 +158,25 @@ class ProgramCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $category = Category::where(['id' => $id])->update('status',0);
-        if($category){
-            return response()->json([
-                'message' => 'Successfully delete a category by id: '.$id,
-                'payload' => $category,
-                'status' => 200,
-            ]);
-        }else{
-            return response()->json([
-                'message' => 'Failed to delete a category',
-                'payload' => array(
-                    'id' => $id
-                ),
-                'status' => 500,
-            ]);
-        }
-    }
+    // public function destroy($id)
+    // {
+    //     $ProgramCategory =ProgramCategory::find($id);
+    //     $ProgramCategory->program_id=$request->program_id;
+    //     $ProgramCategory->category_id=$request->category_id;
+    //     if($ProgramCategory){
+    //         return response()->json([
+    //             'message' => 'Successfully delete a ProgramCategory by id: '.$id,
+    //             'payload' => $ProgramCategory,
+    //             'status' => 200,
+    //         ]);
+    //     }else{
+    //         return response()->json([
+    //             'message' => 'Failed to delete a ProgramCategory',
+    //             'payload' => array(
+    //                 'id' => $id
+    //             ),
+    //             'status' => 500,
+    //         ]);
+    //     }
+    // }
 }

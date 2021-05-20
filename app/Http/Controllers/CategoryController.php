@@ -44,7 +44,6 @@ class CategoryController extends Controller
         $category = new Category();
         $category->title=$request->title;
         $category->description=$request->description;
-        $category->picture_url=$request->picture_url;
         $category->status=$request->status;
         $category->user_id=$request->user_id;
         if($category->save()){
@@ -96,7 +95,11 @@ class CategoryController extends Controller
      */
     public function update(REQUEST $request,$id)
     {
-        $category = Category::where(['id' => $id])->update($request);
+        $category = Category::find($id);
+        $category->title = $request->title;
+        $category->description = $request->description;
+        $category->status = $request->status;
+        $category->save();
         if($category){
             return response()->json([
                 'message' => 'Successfully Updated a category by ID: '.$id,
@@ -120,9 +123,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        $category = Category::where(['id' => $id])->update('status',0);
+        $category = Category::find($id);
+        $category->status = 0;
+        $category->save();
         if($category){
             return response()->json([
                 'message' => 'Successfully delete a category by id: '.$id,
