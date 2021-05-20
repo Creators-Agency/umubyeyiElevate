@@ -15,41 +15,53 @@ use App\Models\Package;
 
 class PackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+   /**
+    * 
+    */
     public function index()
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
+        $Package = Package::get();
+        if ($Package) {
+            return response()->json([
+                'message' => 'Successfully fetched all package',
+                'payload' => $Package,
+                'status' => 200,
+            ]);
+        }else {
+            return response()->json([
+                'message' => 'Failed to fetch all package',
+                'payload' => $Package,
+                'status' => 500,
+            ]);
+        }
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(REQUEST $request)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
-    }
+        /**
+         * Validate
+         */
+        $Package = new Package();
+        $Package->title = $request->title;
+        $Package->description = $request->description;
+        $Package->price = $request->price;
+        $Package->duration = $request->duration;
+        $Package->status = $request->status;
+        $Package->user_id = $request->user_id;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
+        if($Package->save()){
+            return response()->json([
+                'message' => 'Package was successfuly created',
+                'payload' => $Package,
+                'status' => 201,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create a Package',
+                'payload' => $request,
+                'status' => 501,
+            ]);
+        }
+         
     }
 
     /**
@@ -58,24 +70,22 @@ class PackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function fetch($id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
+        $Package = Package::find($id);
+        if($Package){
+            return response()->json([
+                'message' => 'Successfully fetched a Package by ID: '.$id,
+                'payload' => $Package,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to fetch a Package by ID: '.$id,
+                'payload' => [],
+                'status' => 500,
+            ]);
+        }
     }
 
     /**
@@ -85,12 +95,33 @@ class PackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(REQUEST $request,$id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
+        // return $request;
+        $Package = Package::find($id);
+        $Package->title = $request->title;
+        $Package->description = $request->description;
+        $Package->price = $request->price;
+        $Package->duration = $request->duration;
+        $Package->status = $request->status;
+        $Package->user_id = $request->user_id;
+        $Package->save();
+        if($Package){
+            return response()->json([
+                'message' => 'Successfully Updated a Package by ID: '.$id,
+                'payload' => $Package,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to update a Package by ID: '.$id,
+                'payload' => $Package,
+                'status' => 500,
+            ]);
+        }
+        
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -98,10 +129,26 @@ class PackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Package"
-        ]);
+        $deletePackage = Package::find($id);
+        $deletePackage->status=0;
+        if($deletePackage){
+            return response()->json([
+                'message' => 'Successfully delete a Package by id: '.$id,
+                'payload' => $deletePackage,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to delete a Package',
+                'payload' => array(
+                    'id' => $id
+                ),
+                'status' => 500,
+            ]);
+        }
     }
+
+
 }
