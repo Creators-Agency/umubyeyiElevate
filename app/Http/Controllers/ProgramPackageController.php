@@ -20,10 +20,35 @@ class ProgramPackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($program_id)
     {
+        $programPackage = DB::table('program_packages')
+                                ->join('programs','program_packages.program_id','programs.id')
+                                ->join('packages','program_packages.package_id','packages.id')
+                                ->where('programs.id',$program_id)
+                                ->select(
+                                    'packages.title as packageTitle',
+                                    'packages.description as packageDescription',
+                                    'packages.price as packagePrice',
+                                    'packages.duration as packageDureation',
+                                    'packages.status as packageStatus',
+                                    'packages.user_id as packageCreatedBy',
+                                    'packages.created_at as packageCreated_at',
+                                    'packages.updated_at as packageUpdated_at',
+                                    'programs.title as programsTitle',
+                                    'programs.description as programDescription',
+                                    'programs.picture_url as programPicture_url',
+                                    'programs.status as programStatus',
+                                    'programs.user_id as programCreatedBy',
+                                    'programs.created_at as categoryCreated_at',
+                                    'programs.updated_at as categoryUpdated_at',
+                                )
+                                ->get();
+                                
         return response()->json([
-            "message" => "Welcome to Elevate API - Program Package"
+            'message' => 'Successfuly Fetched all Program packages',
+            'payload' => $programPackage,
+            'status' => 200,
         ]);
     }
 
@@ -32,24 +57,24 @@ class ProgramPackageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function store(REQUEST $request)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Package"
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Package"
-        ]);
+        $programPackage = new programPackage();
+        $programPackage->program_id = $request->program_id;
+        $programPackage->package_id = $request->package_id;
+        if($programPackage->save()){
+            return response()->json([
+                'message' => 'Successfuly created Category related to this program',
+                'payload' => $programPackage,
+                'status' => 201,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create a Program Category',
+                'payload' => $request,
+                'status' => 501,
+            ]);
+        }
     }
 
     /**
@@ -58,10 +83,36 @@ class ProgramPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function fetch($program_id,$id)
     {
+        $programPackage = DB::table('program_packages')
+                                ->join('programs','program_packages.program_id','programs.id')
+                                ->join('packages','program_packages.package_id','packages.id')
+                                ->where('programs.id',$program_id)
+                                ->where('program_packages.id',$id)
+                                ->select(
+                                    'packages.title as packageTitle',
+                                    'packages.description as packageDescription',
+                                    'packages.price as packagePrice',
+                                    'packages.duration as packageDureation',
+                                    'packages.status as packageStatus',
+                                    'packages.user_id as packageCreatedBy',
+                                    'packages.created_at as packageCreated_at',
+                                    'packages.updated_at as packageUpdated_at',
+                                    'programs.title as programsTitle',
+                                    'programs.description as programDescription',
+                                    'programs.picture_url as programPicture_url',
+                                    'programs.status as programStatus',
+                                    'programs.user_id as programCreatedBy',
+                                    'programs.created_at as categoryCreated_at',
+                                    'programs.updated_at as categoryUpdated_at',
+                                )
+                                ->get();
+                                
         return response()->json([
-            "message" => "Welcome to Elevate API - Program Package"
+            'message' => 'Successfuly Fetched all Program packages',
+            'payload' => $programPackage,
+            'status' => 200,
         ]);
     }
 
@@ -71,26 +122,26 @@ class ProgramPackageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function update(REQUEST $request,$id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Package"
-        ]);
+        $programPackage = programPackage::find($id);
+        $programPackage->program_id = $request->program_id;
+        $programPackage->package_id = $request->package_id;
+        if($programPackage->save()){
+            return response()->json([
+                'message' => 'Successfuly updated program package table',
+                'payload' => $programPackage,
+                'status' => 201,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create a Program Category',
+                'payload' => $request,
+                'status' => 501,
+            ]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Program Package"
-        ]);
-    }
 
     /**
      * Remove the specified resource from storage.

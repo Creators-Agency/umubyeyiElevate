@@ -46,14 +46,6 @@ Route::prefix('pages')->group(function () {
     Route::delete('/{id}', [PageController::class, 'delete']);
 });
 
-Route::prefix('packages')->group(function () {
-    Route::get('/', [PackageController::class, 'index']);
-    Route::get('/view/{id}', [PackageController::class, 'fetch']);
-    Route::post('/', [PackageController::class, 'store']);
-    Route::put('/{id}', [PackageController::class, 'update']);
-    Route::delete('/{id}', [PackageController::class, 'delete']);
-});
-
 Route::prefix('priviledges')->group(function () {
     Route::get('/', [PriviledgeController::class, 'index']);
     Route::get('/{id}', [PriviledgeController::class, 'show']);
@@ -96,6 +88,14 @@ Route::prefix('contents')->group(function () {
     Route::post('/program', [ProgramContentController::class, 'store']);
     Route::put('/{id}/program', [ProgramContentController::class, 'update']);
     Route::delete('/{id}/program', [ProgramContentController::class, 'delete']);
+});
+
+Route::prefix('packages')->group(function () {
+    Route::get('/', [PackageController::class, 'index']);
+    Route::get('/view/{id}', [PackageController::class, 'fetch']);
+    Route::post('/', [PackageController::class, 'store']);
+    Route::put('/{id}', [PackageController::class, 'update']);
+    Route::delete('/{id}', [PackageController::class, 'delete']);
 });
 
 Route::prefix('package')->group(function () {
