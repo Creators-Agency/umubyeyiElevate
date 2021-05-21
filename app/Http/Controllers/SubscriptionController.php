@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client;
 
 use DB;
 use Auth;
