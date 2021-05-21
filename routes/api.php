@@ -145,6 +145,7 @@ Route::prefix('uploads')->group(function () {
 // Route::get('/programs', [ProgramController::class, 'index']);
 // Route::get('/program-packages', [ProgramPackageController::class, 'index']);
 // Route::get('/subscriptions', [SubscriptionController::class, 'index']);
+Route::post('/callback', [SubscriptionController::class, 'paymentCallBack']);
 Route::get('/users', [UserController::class, 'index']);
 // Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/chats', [ChatController::class, 'index']);
