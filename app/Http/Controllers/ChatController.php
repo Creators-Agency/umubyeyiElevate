@@ -20,11 +20,26 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($program_id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Chat"
-        ]);
+       $program = DB::table('programs')
+                ->join('chats','chats.program_id','programs.id')
+                ->where('programs.id',$program_id)
+                ->get();
+        if ($program) {
+            return response()->json([
+                "message" => "Welcome to Elevate API - Chat",
+                "payload" => $program,
+                'status' => 200
+            ]);
+        }else{
+            return response()->json([
+                "message" => "Welcome to Elevate API - Chat",
+                "payload" => $program,
+                'status' => 500
+            ]);
+        }
+        
     }
 
     /**
@@ -32,25 +47,31 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function store(REQUEST $request)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Chat"
-        ]);
+        $Chat = new Chat();
+        $Chat->title = $request->title;
+        $Chat->description = $request->description;
+        $Chat->picture_url = $request->picture_url;
+        $Chat->program_id = $request->program_id;
+        $Chat->user_id = 1;
+        $Chat->status = 1;
+        $Chat->save();
+        if($Chat){
+            return response()->json([
+                'message' => 'Successfully create a Chat ',
+                'payload' => $Chat,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to create a Chat ',
+                'payload' => $request,
+                'status' => 500,
+            ]);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Chat"
-        ]);
-    }
 
     /**
      * Display the specified resource.
@@ -58,11 +79,26 @@ class ChatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function fetch($program_id, $id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Chat"
-        ]);
+        $program = DB::table('programs')
+                ->join('chats','chats.program_id','programs.id')
+                ->where('programs.id',$program_id)
+                ->where('chats.id',$id)
+                ->get();
+        if ($program) {
+            return response()->json([
+                "message" => "Welcome to Elevate API - Chat",
+                "payload" => $program,
+                'status' => 200
+            ]);
+        }else{
+            return response()->json([
+                "message" => "Welcome to Elevate API - Chat",
+                "payload" => $program,
+                'status' => 500
+            ]);
+        }
     }
 
     /**
@@ -87,9 +123,26 @@ class ChatController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Chat"
-        ]);
+        $Chat = Chat::find($id);
+        $Chat->title = $request->title;
+        $Chat->description = $request->description;
+        $Chat->picture_url = $request->picture_url;
+        $Chat->program_id = $request->program_id;
+        $Chat->status = 1;
+        $Chat->save();
+        if($Chat){
+            return response()->json([
+                'message' => 'Successfully updated a Chat ',
+                'payload' => $Chat,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to update a Chat ',
+                'payload' => $request,
+                'status' => 500,
+            ]);
+        }
     }
 
     /**
@@ -98,10 +151,23 @@ class ChatController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        return response()->json([
-            "message" => "Welcome to Elevate API - Chat"
-        ]);
+        $Chat = Chat::find($id);
+        $Chat->status = 0;
+        $Chat->save();
+        if($Chat){
+            return response()->json([
+                'message' => 'Successfully deleted a Chat ',
+                'payload' => $Chat,
+                'status' => 200,
+            ]);
+        }else{
+            return response()->json([
+                'message' => 'Failed to delete a Chat ',
+                'payload' => $Chat,
+                'status' => 500,
+            ]);
+        }
     }
 }

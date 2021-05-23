@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
@@ -34,6 +35,7 @@ Route::group([
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
+    Route::post('register', 'AuthController@register');
     Route::post('me', 'AuthController@me');
 
 });
@@ -115,19 +117,19 @@ Route::prefix('subscriptions')->group(function () {
 });
 
 Route::prefix('chats')->group(function () {
-    Route::get('/{program_id}/view/', [ProgramCategoryController::class, 'index']);
-    Route::get('/{program_id}/view/{id}', [ProgramCategoryController::class, 'fetch']);
-    Route::post('/', [ProgramCategoryController::class, 'store']);
-    Route::put('/{id}', [ProgramCategoryController::class, 'update']);
-    Route::delete('/{id}', [ProgramCategoryController::class, 'delete']);
+    Route::get('/{program_id}/view/', [ChatController::class, 'index']);
+    Route::get('/{program_id}/view/{id}', [ChatController::class, 'fetch']);
+    Route::post('/', [ChatController::class, 'store']);
+    Route::put('/{id}', [ChatController::class, 'update']);
+    Route::delete('/{id}', [ChatController::class, 'delete']);
 });
 
 Route::prefix('messages')->group(function () {
-    Route::get('/{chat_id}/view/{program_id}/view', [ProgramCategoryController::class, 'index']);
-    Route::get('/{chat_id}/view/{program_id}/view/{id}', [ProgramCategoryController::class, 'fetch']);
-    Route::post('/', [ProgramCategoryController::class, 'store']);
-    Route::put('/{id}', [ProgramCategoryController::class, 'update']);
-    Route::delete('/{id}', [ProgramCategoryController::class, 'delete']);
+    Route::get('/{chat_id}/view', [MessageController::class, 'index']);
+    Route::get('/{chat_id}/view/{id}', [MessageController::class, 'fetch']);
+    Route::post('/', [MessageController::class, 'store']);
+    Route::put('/{id}', [MessageController::class, 'update']);
+    Route::delete('/{id}', [MessageController::class, 'delete']);
 });
 
 Route::prefix('uploads')->group(function () {

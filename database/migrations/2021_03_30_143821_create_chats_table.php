@@ -19,6 +19,7 @@ class CreateChatsTable extends Migration
             $table->text('description');
             $table->string('picture_url');
             $table->integer('status')->default(1);
+            $table->foreignId('program_id');
             $table->foreignId('user_id');
             $table->timestamps();
             $table->softDeletes();
