@@ -44,13 +44,13 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
-    // /**
-    //  * Render an exception into an HTTP response.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  \Exception  $exception
-    //  * @return \Illuminate\Http\Response
-    //  */
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Exception  $exception
+     * @return \Illuminate\Http\Response
+     */
     public function render($request, Throwable $exception)
     {
         return response()->json(

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use JWTAuth;
+use Tymon\JWTAuth\Facades\JWTFactory;
 
 class AuthController extends Controller
 {
@@ -29,12 +31,25 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
+        // return $credentials;
+        $customClaims = ['foo' => 'bar', 'baz' => 'bob'];
+        // $this->guard()->attempt($credentials);
+        // $user = User::first();
+        // return $token = JWTAuth::fromUser($user);
 
-        if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+
+        if ($token = $this->guard()->attempt($credentials,$customClaims)) {
+            return response()->json([
+                'token'=>$token,
+                'payload'=>[],
+                'token_type' => 'bearer',
+                'expires_in' => $this->guard()->factory()->getTTL() * 1
+            ]);
+            // return $this->respondWithToken($token);
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);
+        return response()->json(['error' => 'Unauthorized'], 401); 
+        
     }
 
     public function register(REQUEST $request)
