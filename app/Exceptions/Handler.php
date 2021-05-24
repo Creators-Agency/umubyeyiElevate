@@ -51,15 +51,15 @@ class Handler extends ExceptionHandler
     //  * @param  \Exception  $exception
     //  * @return \Illuminate\Http\Response
     //  */
-    // public function render($request, Throwable $exception)
-    // {
-    //     return response()->json(
-    //         [
-    //             'errors' => [
-    //                 'status' => 401,
-    //                 'message' => 'Unuthenticated',
-    //             ]
-    //         ], 401
-    //     );
-    // }
+    public function render($request, Throwable $exception)
+    {
+        return response()->json(
+            [
+                'errors' => [
+                    'status' => 401,
+                    'message' => 'Unauthenticated',
+                ]
+            ], 401
+        );
+    }
 }
