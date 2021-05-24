@@ -47,6 +47,7 @@ class CategoryController extends Controller
         $category->status=$request->status;
         $category->user_id=$request->user_id;
         if($category->save()){
+            $category = Category::orderBy('id','DESC')->first();
             return response()->json([
                 'message' => 'Successfuly Fetched all categorys',
                 'payload' => $category,
