@@ -15,6 +15,10 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
+    ublic function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index','fetch']]);
+    }
     /**
      * Display a listing of the resource.
      *
