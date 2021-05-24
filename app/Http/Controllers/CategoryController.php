@@ -15,7 +15,7 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    ublic function __construct()
+    public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['index','fetch']]);
     }
