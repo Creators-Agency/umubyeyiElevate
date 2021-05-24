@@ -38,14 +38,14 @@ class AuthController extends Controller
         // return $token = JWTAuth::fromUser($user);
 
 
-        if ($token = $this->guard()->attempt($credentials,$customClaims)) {
-            return response()->json([
-                'token'=>$token,
-                'payload'=>[],
-                'token_type' => 'bearer',
-                'expires_in' => $this->guard()->factory()->getTTL() * 1
-            ]);
-            // return $this->respondWithToken($token);
+        if ($token = $this->guard()->attempt($credentials)) {
+            // return response()->json([
+            //     'access_token'=>$token,
+            //     // 'payload'=>[],
+            //     'token_type' => 'bearer',
+            //     'expires_in' => $this->guard()->factory()->getTTL() * 1
+            // ]);
+            return $this->respondWithToken($token);
         }
 
         return response()->json(['error' => 'Unauthorized'], 401); 
