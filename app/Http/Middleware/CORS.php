@@ -19,7 +19,7 @@ class CORS
         // header('Access-Control-Allow-Origin:*');
         // header('Access-Control-Allow-Headers:Content-type,X-Auth-Token,Authorization, Origin');
         header("Access-Control-Allow-Headers: ACCEPT, CONTENT-TYPE, X-CSRF-TOKEN");
-        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
+        header("Access-Control-Allow-Methods: PUT,GET, POST, OPTIONS, DELETE");
         return $next($request);
     }
 }
