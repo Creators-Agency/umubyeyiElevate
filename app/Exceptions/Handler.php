@@ -44,22 +44,22 @@ class Handler extends ExceptionHandler
         parent::report($exception);
     }
 
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render($request, Throwable $exception)
-    {
-        return response()->json(
-            [
-                'errors' => [
-                    'status' => 401,
-                    'message' => 'Unuthenticated',
-                ]
-            ], 401
-        );
-    }
+    // /**
+    //  * Render an exception into an HTTP response.
+    //  *
+    //  * @param  \Illuminate\Http\Request  $request
+    //  * @param  \Exception  $exception
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function render($request, Throwable $exception)
+    // {
+    //     return response()->json(
+    //         [
+    //             'errors' => [
+    //                 'status' => 401,
+    //                 'message' => 'Unuthenticated',
+    //             ]
+    //         ], 401
+    //     );
+    // }
 }
