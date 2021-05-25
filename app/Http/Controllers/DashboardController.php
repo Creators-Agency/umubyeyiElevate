@@ -17,7 +17,7 @@ class DashboardController extends Controller {
         $categories = Category::where('status',1)->count();
         $numberOfFocus = Program::where('status',1)->count();
         $numberOfPackage = Package::where('status',1)->count();
-        return $values = Subscription::selectRaw("count(*) as transaction, YEAR(created_at) AS year, DATE_FORMAT(created_at, '%b') AS month")
+        $values = Subscription::selectRaw("count(*) as transaction, YEAR(created_at) AS year, DATE_FORMAT(created_at, '%b') AS month")
                     ->groupby('year', 'month')
                     ->where('status', 1)
                     ->get();
