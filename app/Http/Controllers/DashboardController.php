@@ -13,7 +13,7 @@ class DashboardController extends Controller {
     
     public function analyticsData() {
 
-        $clients = User::where('account_type',1)->count();
+        $clients = User::where('status',1)->count();
         $categories = Category::where('status',1)->count();
         $numberOfFocus = Program::where('status',1)->count();
         $numberOfPackage = Package::where('status',1)->count();
