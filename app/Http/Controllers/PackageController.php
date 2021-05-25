@@ -15,6 +15,10 @@ use App\Models\Package;
 
 class PackageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index','fetch']]);
+    }
    /**
     * 
     */

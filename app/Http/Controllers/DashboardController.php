@@ -9,9 +9,15 @@ use App\Models\Subscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller {
+class DashboardController extends Controller 
+{
     
-    public function analyticsData() {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['index','fetch']]);
+    }
+    public function analyticsData() 
+    {
 
         $clients = User::where('status',1)->count();
         $categories = Category::where('status',1)->count();
