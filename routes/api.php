@@ -140,6 +140,13 @@ Route::prefix('uploads')->group(function () {
     Route::delete('/{id}', [ProgramContentUploadController::class, 'delete']);
 });
 
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', [DashboardController::class, 'analyticsData']);
+    Route::get('/transactions', [DashboardController::class, 'transactions']);
+    Route::get('/categories', [DashboardController::class, 'categories']);
+    Route::get('/analytics', [DashboardController::class, 'analytics']);
+});
+
 
 // Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
 // Route::get('/program-contents', [ProgramContentController::class, 'index']);
