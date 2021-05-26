@@ -12,11 +12,11 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($program_id)
+    public function index()
     {
         $menus = Menu::get();
         return response()->json([
-            'message' => "fetched all menu for Focus id ".$program_id, 
+            'message' => "fetched all menu for Focus id ", 
             'payload' => $menus,
             'status' => 201
         ]);
