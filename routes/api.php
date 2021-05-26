@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ChatMessageController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PageController;
@@ -56,6 +57,15 @@ Route::prefix('priviledges')->group(function () {
     Route::put('/{id}', [PriviledgeController::class, 'update']);
     Route::delete('/{id}', [PriviledgeController::class, 'destroy']);
 });
+
+Route::prefix('menus')->group(function () {
+    Route::get('/{program_id}/view/', [MenuController::class, 'index']);
+    Route::get('/{program_id}/view/{id}', [MenuController::class, 'show']);
+    Route::post('/', [MenuController::class, 'store']);
+    Route::put('/{id}', [MenuController::class, 'update']);
+    Route::delete('/{id}', [MenuController::class, 'destroy']);
+});
+
 
 Route::prefix('category')->group(function () {
     Route::get('/', [CategoryController ::class, 'index']);
