@@ -59,8 +59,8 @@ Route::prefix('priviledges')->group(function () {
 });
 
 Route::prefix('menus')->group(function () {
-    Route::get('/{program_id}/view/', [MenuController::class, 'index']);
-    Route::get('/view', [MenuController::class, 'byFocus']);
+    Route::get('/{program_id}/view/', [MenuController::class, 'byFocus']);
+    Route::get('/view', [MenuController::class, 'index']);
     Route::get('/{program_id}/view/{id}', [MenuController::class, 'show']);
     Route::post('/', [MenuController::class, 'store']);
     Route::put('/{id}', [MenuController::class, 'update']);
