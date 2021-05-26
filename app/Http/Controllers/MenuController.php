@@ -14,6 +14,15 @@ class MenuController extends Controller
      */
     public function index($program_id)
     {
+        $menus = Menu::get();
+        return response()->json([
+            'message' => "fetched all menu for Focus id ".$program_id, 
+            'payload' => $menus,
+            'status' => 201
+        ]);
+    }
+    public function byFocus($program_id)
+    {
         $menus = Menu::where(['program_id'=>$program_id])->get();
         return response()->json([
             'message' => "fetched all menu for Focus id ".$program_id, 
