@@ -17,6 +17,7 @@ class CreateMenusTable extends Migration
             $table->id();
             $table->string('menu_name');
             $table->integer('parent_id')->default(0);
+            $table->integer('level')->default(1);
             $table->integer('status')->default(1);
             $table->foreignId('program_id');
             $table->foreignId('user_id');
