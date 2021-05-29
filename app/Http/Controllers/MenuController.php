@@ -38,12 +38,19 @@ class MenuController extends Controller
      */
     public function store(REQUEST $request)
     {
+        $parent = Menu::find($request->parent_id);
+        if ($parent!=null) {
+            $level = $parent->level + 1;
+        } else{
+            $level =0;
+        }
         $menu = new Menu();
         $menu->menu_name = $request->menu_name;
         $menu->parent_id = $request->parent_id;
         $menu->status = $request->status;
         $menu->program_id = $request->program_id;
         $menu->user_id = $request->user_id;
+        $menu->level = $level;
         if($menu->save()){
             $menu = Menu::orderBy('id','DESC')->first();
             return response()->json([

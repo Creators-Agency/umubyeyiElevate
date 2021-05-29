@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryContentController;
 use Illuminate\Support\Facades\Route;
 
@@ -159,6 +160,15 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/analytics', [DashboardController::class, 'analytics']);
 });
 
+
+Route::prefix('blogs')->group(function () {
+    Route::get('/view', [BlogController::class, 'fetch']);
+    Route::get('/view/{id}', [BlogController::class, 'fetch']);
+    Route::get('/{program_id}/view/', [BlogController::class, 'index']);
+    Route::post('/', [BlogController::class, 'store']);
+    Route::put('/{id}', [BlogController::class, 'update']);
+    Route::delete('/{id}', [BlogController::class, 'delete']);
+});
 
 // Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
 // Route::get('/program-contents', [ProgramContentController::class, 'index']);
