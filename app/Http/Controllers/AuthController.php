@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Subscription;
 use App\Models\User;
 use JWTAuth;
 use Tymon\JWTAuth\Facades\JWTFactory;
@@ -39,12 +40,6 @@ class AuthController extends Controller
 
 
         if ($token = $this->guard()->attempt($credentials)) {
-            // return response()->json([
-            //     'access_token'=>$token,
-            //     // 'payload'=>[],
-            //     'token_type' => 'bearer',
-            //     'expires_in' => $this->guard()->factory()->getTTL() * 1
-            // ]);
             return $this->respondWithToken($token);
         }
 
@@ -54,8 +49,21 @@ class AuthController extends Controller
 
     public function register(REQUEST $request)
     {
-        // return $request;
-        return User::create($request->all());
+        $token = time().rand(100,0);
+        $created= User::create([
+            'name'=>$request->name,
+            'password'=>$request->password,
+            'email'=>$request->email,
+            'telephone'=>$request->telephone,
+            'verify_token'=>$token
+            ]);
+        if ($created) {
+            if ($request->verificationWay === 0) {
+                $this->sendBulk($created->telephone,$token);
+            }else{
+                $this->sendEmail($request->email,$token);
+            }
+        }
         return $this->login($request);
     }
 
@@ -101,11 +109,13 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         $user = $this->me();
+        $subscription = Subscription::where('user_id',$user->id);
         if($user->verified !== 1){
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'bearer',
                 'payload' => $user->original,
+                'subscription' => $subscription,
                 'status' =>422,
                 'expires_in' => $this->guard()->factory()->getTTL() * 1
             ]);
@@ -114,6 +124,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'payload' => $user->original,
+            'subscription' => $subscription,
             'expires_in' => $this->guard()->factory()->getTTL() * 1
         ]);
     }
@@ -126,5 +137,15 @@ class AuthController extends Controller
     public function guard()
     {
         return Auth::guard();
+    }
+
+    public function sendEmail($email,$token)
+    {
+        return $email;
+    }
+
+    public function sendBulk($phone,$token)
+    {
+        return $phone;
     }
 }
