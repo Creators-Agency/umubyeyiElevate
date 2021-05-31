@@ -23,7 +23,9 @@ class CreateUsersTable extends Migration
             $table->string('location')->nullable();
             $table->date('dob')->nullable();
             $table->string('picture_url')->nullable();
-            $table->integer('status')->default(1);
+            $table->integer('status')->default(1)->comment="0 for deleted, 1 for active";
+            $table->integer('verified')->default(0)->comment="0 for unverified, 1 for verified";
+            $table->integer('verify_token');
             $table->foreignId('priviledge_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

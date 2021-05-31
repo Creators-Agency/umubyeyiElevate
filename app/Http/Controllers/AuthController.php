@@ -101,6 +101,15 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         $user = $this->me();
+        if($user->verified !== 1){
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'payload' => $user->original,
+                'status' =>422,
+                'expires_in' => $this->guard()->factory()->getTTL() * 1
+            ]);
+        }
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
