@@ -109,7 +109,7 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         $user = $this->me();
-        $subscription = Subscription::where('user_id',$user->id);
+        $subscription = Subscription::where('user_id',$user->id)->get();
         if($user->verified !== 1){
             return response()->json([
                 'access_token' => $token,
