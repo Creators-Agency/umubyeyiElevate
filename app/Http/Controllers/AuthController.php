@@ -108,14 +108,14 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        $user = $this->me();
-        $subscription = Subscription::where('user_id',$user->id)->get();
+        $user = $this->guard()->user();
+        return $subscription = Subscription::where('user_id',$user['id'])->orderBy('id','DESC')->first();
         if($user->verified !== 1){
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'bearer',
                 'payload' => $user->original,
-                'subscription' => $subscription,
+                // 'subscription' => $subscription,
                 'status' =>422,
                 'expires_in' => $this->guard()->factory()->getTTL() * 1
             ]);
@@ -124,7 +124,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'payload' => $user->original,
-            'subscription' => $subscription,
+            // 'subscription' => $subscription,
             'expires_in' => $this->guard()->factory()->getTTL() * 1
         ]);
     }
