@@ -108,9 +108,9 @@ class AuthController extends Controller
      */
     protected function respondWithToken($token)
     {
-        $user = $this->guard()->user();
-        $subscription = Subscription::where('user_id',$user['id'])->orderBy('id','DESC')->first();
-        if($user->verified !== 1){
+        $user = $this->me();
+        $subscription = Subscription::where('user_id',$user->original->id)->orderBy('id','DESC')->first();
+        if($user->original->verified !== 1){
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'bearer',
