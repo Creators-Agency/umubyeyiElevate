@@ -91,21 +91,22 @@ class ProgramPackageController extends Controller
                                 ->where('programs.id',$program_id)
                                 ->where('program_packages.id',$id)
                                 ->select(
+                                    'packages.id as id',
                                     'packages.title as packageTitle',
                                     'packages.description as packageDescription',
                                     'packages.price as packagePrice',
-                                    'packages.duration as packageDureation',
-                                    'packages.status as packageStatus',
-                                    'packages.user_id as packageCreatedBy',
-                                    'packages.created_at as packageCreated_at',
-                                    'packages.updated_at as packageUpdated_at',
-                                    'programs.title as programsTitle',
-                                    'programs.description as programDescription',
-                                    'programs.picture_url as programPicture_url',
-                                    'programs.status as programStatus',
-                                    'programs.user_id as programCreatedBy',
-                                    'programs.created_at as categoryCreated_at',
-                                    'programs.updated_at as categoryUpdated_at',
+                                    'packages.duration as packageDuration',
+                                    // 'packages.status as packageStatus',
+                                    // 'packages.user_id as packageCreatedBy',
+                                    // 'packages.created_at as packageCreated_at',
+                                    // 'packages.updated_at as packageUpdated_at',
+                                    // 'programs.title as programsTitle',
+                                    // 'programs.description as programDescription',
+                                    // 'programs.picture_url as programPicture_url',
+                                    // 'programs.status as programStatus',
+                                    // 'programs.user_id as programCreatedBy',
+                                    // 'programs.created_at as categoryCreated_at',
+                                    // 'programs.updated_at as categoryUpdated_at',
                                 )
                                 ->get();
                                 

@@ -26,7 +26,8 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        $programs = Program::get();
+        $programs = DB::table('programs')
+                        ->join()
         return response()->json([
             'message' => 'Successfuly Fetched all programs',
             'payload' => $programs,
