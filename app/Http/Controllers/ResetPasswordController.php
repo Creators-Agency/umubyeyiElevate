@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use DB;
 use App\Mail\ResetPasswordMail;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
+use App\Http\Requests\ChangePassword;
 
 class ResetPasswordController extends Controller
 {
@@ -17,13 +18,9 @@ class ResetPasswordController extends Controller
             return $request->email;
             return $this->failedResponse();
         }
-
         $this->sendEmail($request->email);
         return $this->successResponse();
-
     }
-
-    
 
     public function sendEmail($email)
     {
@@ -35,7 +32,7 @@ class ResetPasswordController extends Controller
     {
         $oldToken = DB::table('password_resets')->where('email',$email)->first();
         if($oldToken){
-            return $oldToken;
+            return $oldToken->token;
         }
 
         $token = time().rand(100,0);
@@ -51,6 +48,7 @@ class ResetPasswordController extends Controller
             'created_at' => Carbon::now()
         ]);
     }
+
     public function validateEmail($email)
     {
         return !!User::where('email',$email)->first();
@@ -68,5 +66,36 @@ class ResetPasswordController extends Controller
         return response()->json([
                 'message' => "Reset Link has been sent to your inbox",
         ],Response::HTTP_OK);
+    }
+
+
+    /**
+     * resetting part
+     */
+
+    public function reset(ChangePassword $request)
+    {
+       return $this->checkResetPassword($request)->count() > 0 ? $this->changePassword($request):$this->tokenNotFound();
+    }
+
+    public function checkResetPassword($request)
+    {
+        return DB::table('password_resets')->where(['email'=>$request->email,'token'=>$request->resetToken]);
+    }
+
+    public function changePassword($request)
+    {
+        $user = User::whereEmail($request->email)->first();
+        $user->update(['password' => $request->password]);
+        $this->checkResetPassword($request)->delete();
+        return response()->json([
+            "message" => "Password changed"
+        ],Response::HTTP_CREATED);
+    }
+    public function tokenNotFound()
+    {
+        return response()->json([
+            'error' => "Token not found or has expired!"
+        ],Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }
