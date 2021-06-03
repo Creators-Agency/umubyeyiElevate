@@ -16,7 +16,7 @@ class ResetPasswordController extends Controller
     public function resetPassword(REQUEST $request)
     {
         if(!$this->validateEmail($request->email)){
-            return $request->email;
+            // return $request->email;
             return $this->failedResponse();
         }
         $this->sendEmail($request->email);

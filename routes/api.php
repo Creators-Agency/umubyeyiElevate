@@ -41,12 +41,12 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'AuthController@register');
     Route::post('profile', 'AuthController@me');
-    Route::post('reset', 'ResetPasswordController@resetPassword');
-    Route::post('reset-response', 'ResetPasswordController@reset');
     Route::post('profile/password/reset', 'ResetPasswordController@resetProfile');
-    Route::post('send/message', 'ContactUsController@sendMessage');
-
+    
 });
+Route::post('send/message', [ContactUsController::class, 'sendMessage']);
+Route::post('reset',[ResetPasswordController::class, 'resetPassword']);
+Route::post('reset-response',[ResetPasswordController::class, 'reset']);
 
 Route::prefix('pages')->group(function () {
     Route::get('/', [PageController::class, 'index']);

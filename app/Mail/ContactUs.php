@@ -12,14 +12,18 @@ class ContactUs extends Mailable
     use Queueable, SerializesModels;
 
     public $message;
+    public $email;
+    public $subject;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($request)
     {
-        $this->message = $message;
+        $this->message = $request->message;
+        $this->email = $request->email;
+        $this->subject = $request->subject;
     }
 
     /**
@@ -29,7 +33,7 @@ class ContactUs extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.contactus')->with([
+        return $this->subject($this->subject)->markdown('email.contactus')->with([
             "message" => $this->message,
             "email" => $this->email
         ]);
