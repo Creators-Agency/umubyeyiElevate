@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Http\Requests\ChangePassword;
+use App\Http\Requests\ChangePasswordProfile;
 
 class ResetPasswordController extends Controller
 {
@@ -97,5 +98,23 @@ class ResetPasswordController extends Controller
         return response()->json([
             'error' => "Token not found or has expired!"
         ],Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    /**
+     * 
+     */
+    public function resetProfile(ChangePasswordProfile $request)
+    {
+        $user = User::whereEmail($request->email)->first();
+        $user->update(['password' => $request->password]);
+        if ($user) {
+            return response()->json([
+                "message" => "Password changed"
+            ],Response::HTTP_CREATED);
+        }else{
+            return response()->json([
+                'error' => "Unable to change password!"
+            ],Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
     }
 }

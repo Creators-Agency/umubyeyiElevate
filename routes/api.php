@@ -21,6 +21,7 @@ use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\ProgramPackageController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactUsController;
 
 Route::get('/', function () {
     return response()->json([
@@ -42,6 +43,8 @@ Route::group([
     Route::post('profile', 'AuthController@me');
     Route::post('reset', 'ResetPasswordController@resetPassword');
     Route::post('reset-response', 'ResetPasswordController@reset');
+    Route::post('profile/password/reset', 'ResetPasswordController@resetProfile');
+    Route::post('send/message', 'ContactUsController@sendMessage');
 
 });
 
