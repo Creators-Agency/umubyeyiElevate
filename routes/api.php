@@ -40,6 +40,8 @@ Route::group([
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'AuthController@register');
     Route::post('profile', 'AuthController@me');
+    Route::post('reset', 'ResetPasswordController@resetPassword');
+    Route::post('reset-response', 'ResetPasswordController@reset');
 
 });
 
@@ -178,7 +180,13 @@ Route::prefix('blogs')->group(function () {
 // Route::get('/subscriptions', [SubscriptionController::class, 'index']);
 
 Route::post('/callback', [SubscriptionController::class, 'paymentCallBack']);
+/**
+ * verifying account
+ */
 Route::get('/verify/{token}', [Verification::class, 'verify']);
+/**
+ * resetting password
+ */
 Route::get('/users', [UserController::class, 'index']);
 Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chat-messages', [ChatMessageController::class, 'index']);
