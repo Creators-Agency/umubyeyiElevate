@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use App\Models\Subscription;
 use App\Models\User;
 use JWTAuth;
+use DB;
 use Tymon\JWTAuth\Facades\JWTFactory;
 
 class AuthController extends Controller
@@ -109,13 +111,60 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         $user = $this->me();
-        $subscription = Subscription::where('user_id',$user->original->id)->orderBy('id','DESC')->first();
+        // return $user->original->id;
+        $activeSub=[];
+        $data=[];
+        $offset=2*60*60; //converting 2 hours to seconds.
+        $dateFormat="Y-m-d";
+        $now = gmdate($dateFormat, time()+$offset);
+        $subscription = Subscription::where('user_id',$user->original->id)->orderBy('id','DESC')->get();
+        foreach($subscription as $sub){
+            // return 
+        //    $data = date('d-m-Y', strtotime($sub->end_on));
+            if($sub->end_date <= $now){
+                $activeSub['id'] = $sub->id;
+                $activeSub['start_on'] = $sub->start_on;
+                $activeSub['end_on'] = $sub->end_on;
+                $activeSub['amount'] = $sub->amount;
+                $activeSub['status'] = $sub->status;
+                $activeSub['transactionID'] = $sub->transactionID;
+                 $joint = DB::table('program_packages')
+                    ->join('packages','packages.id','program_packages.package_id')
+                    ->join('programs','programs.id','program_packages.program_id')
+                    ->select(
+                        'programs.title as programTitle',
+                        'programs.id as programId',
+                        'packages.title as packagesTitle',
+                        'packages.id as packagesId',
+
+                    )
+                    ->where('program_packages.id',$sub->program_package_id)
+                    ->get();
+                $activeSub['packages_id'] = $joint[0]->packagesId;
+                $activeSub['packages_title'] = $joint[0]->packagesTitle;
+                $activeSub['program_id'] = $joint[0]->programId;
+                $activeSub['program_title'] = $joint[0]->programTitle;
+                $activeSub['program_package_id'] = $sub->program_package_id;
+                $activeSub['program_package_id'] = $sub->program_package_id;
+                $activeSub['user_id'] = $sub->user_id;
+                 array_push($data, $activeSub);
+            }
+        }
+        // return $activeSub;
+        /**
+         * ------------- 
+         * | condition |
+         * -------------
+         * if duration of he/she subcribed has not been expired
+         *      example subscription was 2020-01-01 and duration was one year on 2021-01-01 shouldn't be returned
+         * 
+         */
         if($user->original->verified !== 1){
             return response()->json([
                 'access_token' => $token,
                 'token_type' => 'bearer',
                 'payload' => $user->original,
-                'subscription' => $subscription,
+                'subscription' => $data,
                 'status' =>422,
                 'expires_in' => $this->guard()->factory()->getTTL() * 1
             ]);
@@ -124,7 +173,7 @@ class AuthController extends Controller
             'access_token' => $token,
             'token_type' => 'bearer',
             'payload' => $user->original,
-            'subscription' => $subscription,
+            'subscription' => $data,
             'status' =>200,
             'expires_in' => $this->guard()->factory()->getTTL() * 1
         ]);

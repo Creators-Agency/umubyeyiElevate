@@ -42,6 +42,7 @@ class SubscriptionController extends Controller
      */
     public function store(REQUEST $request)
     {
+        // return $request;
         /**
          * Validate
          */
@@ -55,7 +56,7 @@ class SubscriptionController extends Controller
         $offset=2*60*60; //converting 2 hours to seconds.
         $dateFormat="Y-m-d";
         $start = $timeNdate=gmdate($dateFormat, time()+$offset);
-        $end = date('Y-m-d', strtotime('+1 month', strtotime($timeNdate)));
+        $end = date('Y-m-d', strtotime('+'.$pack->duration.' month', strtotime($timeNdate)));
         $Subscription = new Subscription();
         $Subscription->start_on = $start;
         $Subscription->end_on = $end;
