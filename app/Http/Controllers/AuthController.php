@@ -54,7 +54,7 @@ class AuthController extends Controller
     public function register(REQUEST $request)
     {
         $priv = Priviledge::where('position',1)->first();
-        if (Empty($priv)) {
+        if (!$priv) {
             return response()->json([
                 'error' => "Permission not found"
             ],Response::HTTP_UNPROCESSABLE_ENTITY);
