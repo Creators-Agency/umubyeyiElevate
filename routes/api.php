@@ -176,11 +176,11 @@ Route::prefix('blogs')->group(function () {
 
 
 Route::prefix('priviledges')->group(function () {
-    Route::get('/', [BlogController::class, 'fetch']);
-    Route::get('/view/{id}', [BlogController::class, 'fetch']);
-    Route::post('/', [BlogController::class, 'store']);
-    Route::put('/{id}', [BlogController::class, 'update']);
-    Route::delete('/{id}', [BlogController::class, 'delete']);
+    Route::get('/', [PriviledgeController::class, 'fetch']);
+    Route::get('/view/{id}', [PriviledgeController::class, 'fetch']);
+    Route::post('/', [PriviledgeController::class, 'store']);
+    Route::put('/{id}', [PriviledgeController::class, 'update']);
+    Route::delete('/{id}', [PriviledgeController::class, 'delete']);
 });
 
 
