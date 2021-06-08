@@ -59,6 +59,7 @@ class AuthController extends Controller
                 'error' => "Permission not found"
             ],Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        // return $priv->position;
         /**
          * to do
          * -----
