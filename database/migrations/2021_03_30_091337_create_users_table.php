@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->integer('status')->default(1)->comment="0 for deleted, 1 for active";
             $table->integer('verified')->default(0)->comment="0 for unverified, 1 for verified";
             $table->bigInteger('verify_token');
-            $table->foreignId('priviledge_id')->nullable();
+            $table->foreignId('priviledge')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

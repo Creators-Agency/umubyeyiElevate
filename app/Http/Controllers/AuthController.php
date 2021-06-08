@@ -71,7 +71,7 @@ class AuthController extends Controller
             'email'=>$request->email,
             'telephone'=>$request->telephone,
             'verify_token'=>$token,
-            'priviledge_id'=>$priv->id
+            'priviledge'=>$priv->position
             ]);
         if ($created) {
             if ($request->verificationWay === 0) {
