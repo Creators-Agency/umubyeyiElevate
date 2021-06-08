@@ -50,8 +50,9 @@ class PriviledgeController extends Controller
     public function store(Request $request)
     {
         $priviledge = new Priviledge();
-        $priviledge->title = request()->title;
-        $priviledge->status = request()->status;
+        $priviledge->title = $request->title;
+        $priviledge->position =  $request->title;
+        $priviledge->status =  $request->status;
         $priviledge->save();
 
         return response()->json([

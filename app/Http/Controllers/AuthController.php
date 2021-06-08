@@ -59,6 +59,11 @@ class AuthController extends Controller
                 'error' => "Permission not found"
             ],Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+        /**
+         * to do
+         * -----
+         * message for verification
+         */
         $token = time().rand(100,0);
         $created= User::create([
             'name'=>$request->name,
