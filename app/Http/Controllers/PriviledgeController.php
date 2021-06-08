@@ -61,7 +61,7 @@ class PriviledgeController extends Controller
     {
         $priviledge = new Priviledge();
         $priviledge->title = $request->title;
-        $priviledge->position =  $request->title;
+        $priviledge->position =  $request->position;
         $priviledge->status =  $request->status;
         $priviledge->save();
 
