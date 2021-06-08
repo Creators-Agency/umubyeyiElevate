@@ -16,6 +16,7 @@ class CreatePriviledgesTable extends Migration
         Schema::create('priviledges', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->integer('position')->default(1)->comment="0:admin, 1:simple user, 2:expert";
             $table->integer('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

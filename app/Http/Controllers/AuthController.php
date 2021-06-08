@@ -6,10 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Package;
+use App\Models\Priviledge;
 use App\Models\Subscription;
 use App\Models\User;
 use JWTAuth;
 use DB;
+use Illuminate\Http\Response;
 use Tymon\JWTAuth\Facades\JWTFactory;
 
 class AuthController extends Controller
@@ -51,13 +53,20 @@ class AuthController extends Controller
 
     public function register(REQUEST $request)
     {
+        $priv = Priviledge::where('position',1)->first();
+        if (Empty($priv)) {
+            return response()->json([
+                'error' => "Permission not found"
+            ],Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
         $token = time().rand(100,0);
         $created= User::create([
             'name'=>$request->name,
             'password'=>$request->password,
             'email'=>$request->email,
             'telephone'=>$request->telephone,
-            'verify_token'=>$token
+            'verify_token'=>$token,
+            'priviledge_id'=>$priv->id
             ]);
         if ($created) {
             if ($request->verificationWay === 0) {
@@ -147,7 +156,8 @@ class AuthController extends Controller
                 $activeSub['program_package_id'] = $sub->program_package_id;
                 $activeSub['program_package_id'] = $sub->program_package_id;
                 $activeSub['user_id'] = $sub->user_id;
-                 array_push($data, $activeSub);
+                $activeSub['status'] = $sub->status;
+                array_push($data, $activeSub);
             }
         }
         // return $activeSub;

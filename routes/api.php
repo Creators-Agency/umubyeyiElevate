@@ -42,7 +42,6 @@ Route::group([
     Route::post('register', 'AuthController@register');
     Route::post('profile', 'AuthController@me');
     Route::post('profile/password/reset', 'ResetPasswordController@resetProfile');
-    
 });
 Route::post('send/message', [ContactUsController::class, 'sendMessage']);
 Route::post('reset',[ResetPasswordController::class, 'resetPassword']);
@@ -174,6 +173,16 @@ Route::prefix('blogs')->group(function () {
     Route::put('/{id}', [BlogController::class, 'update']);
     Route::delete('/{id}', [BlogController::class, 'delete']);
 });
+
+
+Route::prefix('priviledges')->group(function () {
+    Route::get('/', [BlogController::class, 'fetch']);
+    Route::get('/view/{id}', [BlogController::class, 'fetch']);
+    Route::post('/', [BlogController::class, 'store']);
+    Route::put('/{id}', [BlogController::class, 'update']);
+    Route::delete('/{id}', [BlogController::class, 'delete']);
+});
+
 
 // Route::get('/program-categories', [ProgramCategoryController::class, 'index']);
 // Route::get('/program-contents', [ProgramContentController::class, 'index']);
