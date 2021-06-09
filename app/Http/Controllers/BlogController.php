@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
 
@@ -32,12 +33,8 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(REQUEST $request)
+    public function store(BlogRequest $request)
     {
-        /**
-         * Validate
-         */
-        // return $request;
         $Blog = new Blog();
         $Blog->title=$request->title;
         $Blog->description=$request->description;
@@ -92,7 +89,7 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(REQUEST $request,$id)
+    public function update(BlogRequest $request,$id)
     {
         // return $request;
         $updatedBlog = Blog::find($id);
