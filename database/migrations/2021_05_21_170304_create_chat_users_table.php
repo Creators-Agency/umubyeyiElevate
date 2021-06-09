@@ -15,6 +15,9 @@ class CreateChatUsersTable extends Migration
     {
         Schema::create('chat_users', function (Blueprint $table) {
             $table->id();
+            $table->integer('chat_id');
+            $table->integer('user_id');
+            $table->integer('status')->default(0)->comment="0:pending, 1:approved";
             $table->timestamps();
         });
     }

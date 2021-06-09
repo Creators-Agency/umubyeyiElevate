@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ChatRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -47,7 +48,7 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(REQUEST $request)
+    public function store(ChatRequest $request)
     {
         $Chat = new Chat();
         $Chat->title = $request->title;

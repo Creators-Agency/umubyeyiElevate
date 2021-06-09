@@ -21,4 +21,9 @@ class MessageController extends Controller
             "status" => 200
         ]);
     }
+
+    public function store()
+    {
+        # code...
+    }
 }

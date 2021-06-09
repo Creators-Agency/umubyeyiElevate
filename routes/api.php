@@ -22,6 +22,7 @@ use App\Http\Controllers\ProgramPackageController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\ChatUserController;
 
 Route::get('/', function () {
     return response()->json([
@@ -139,6 +140,10 @@ Route::prefix('chats')->group(function () {
     Route::post('/', [ChatController::class, 'store']);
     Route::put('/{id}', [ChatController::class, 'update']);
     Route::delete('/{id}', [ChatController::class, 'delete']);
+    Route::post('/request', [ChatUserController::class, 'requestToJoin']);
+    Route::post('/user/revoke/{id}', [ChatUserController::class, 'revoke']);
+    Route::post('/user/accept/{id}', [ChatUserController::class, 'accepting']);
+    
 });
 
 Route::prefix('messages')->group(function () {

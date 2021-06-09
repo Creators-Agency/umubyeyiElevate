@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ChatUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,8 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            "title"=> "required|unique:categories|max:100|min:10",
-            "description"=> "required|min:100",
-            "user_id"=> "required",
+            "user_id" => "required",
+            "chat_id" => "required"
         ];
     }
 }
