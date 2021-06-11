@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 class CategoryRequest extends FormRequest
 {
     /**
@@ -28,5 +29,10 @@ class CategoryRequest extends FormRequest
             "description"=> "required|min:100",
             "user_id"=> "required",
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }

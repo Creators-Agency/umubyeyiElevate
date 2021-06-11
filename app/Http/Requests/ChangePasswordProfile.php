@@ -3,7 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 class ChangePasswordProfile extends FormRequest
 {
     /**
@@ -27,5 +28,10 @@ class ChangePasswordProfile extends FormRequest
             'email' => 'required|email',
             'password' => 'required|confirmed'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }
