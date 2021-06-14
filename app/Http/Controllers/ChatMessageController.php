@@ -12,6 +12,7 @@ use Redirect;
 use Validator;
 
 use App\Models\ChatMessage;
+use Illuminate\Http\Response;
 
 class ChatMessageController extends Controller
 {
@@ -20,11 +21,15 @@ class ChatMessageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function chatMessage($chatID)
     {
+        $message = DB::table('chat_messages')
+            ->where('chat_id',$chatID)
+            ->get();
         return response()->json([
-            "message" => "Welcome to Elevate API - Chat Message"
-        ]);
+            "message" => "Welcome to Elevate API - Chat Message",
+            "payload" => $message
+        ],Response::HTTP_OK);
     }
 
     /**
@@ -47,9 +52,19 @@ class ChatMessageController extends Controller
      */
     public function store(Request $request)
     {
+        $message = new ChatMessage();
+        $message->content = $request->content;
+        $message->chat_id = $request->chat_id;
+        $message->user_id = $request->user_id;
+        $message->save();
+        if ($message) {
+            return response()->json([
+                "message" => "message sent",
+            ],Response::HTTP_CREATED);
+        }
         return response()->json([
             "message" => "Welcome to Elevate API - Chat Message"
-        ]);
+        ],Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**

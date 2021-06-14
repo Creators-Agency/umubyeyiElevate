@@ -147,11 +147,11 @@ Route::prefix('chats')->group(function () {
 });
 
 Route::prefix('messages')->group(function () {
-    Route::get('/{chat_id}/view', [MessageController::class, 'index']);
-    Route::get('/{chat_id}/view/{id}', [MessageController::class, 'fetch']);
-    Route::post('/', [MessageController::class, 'store']);
-    Route::put('/{id}', [MessageController::class, 'update']);
-    Route::delete('/{id}', [MessageController::class, 'delete']);
+    Route::get('/{chat_id}/view', [ChatMessageController::class, 'chatMessage']);
+    Route::get('/{chat_id}/view/{id}', [ChatMessageController::class, 'fetch']);
+    Route::post('/', [ChatMessageController::class, 'store']);
+    Route::put('/{id}', [ChatMessageController::class, 'update']);
+    Route::delete('/{id}', [ChatMessageController::class, 'delete']);
 });
 
 Route::prefix('uploads')->group(function () {
