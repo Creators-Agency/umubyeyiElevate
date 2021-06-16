@@ -45,9 +45,14 @@ class MenuController extends Controller
         } else{
             $level =0;
         }
+        if ($request->parent_id = null) {
+            $id = 0;
+        }else{
+            $id =$request->parent_id;
+        }
         $menu = new Menu();
         $menu->menu_name = $request->menu_name;
-        $menu->parent_id = $request->parent_id;
+        $menu->parent_id = $id;
         $menu->status = $request->status;
         $menu->program_id = $request->program_id;
         $menu->user_id = $request->user_id;
