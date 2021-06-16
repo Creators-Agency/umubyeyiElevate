@@ -38,7 +38,7 @@ class MenuController extends Controller
      */
     public function store(REQUEST $request)
     {
-        return $request;
+        // return $request;
         $parent = Menu::find($request->parent_id);
         if ($parent!=null) {
             $level = $parent->level + 1;
