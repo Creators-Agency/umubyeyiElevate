@@ -45,7 +45,7 @@ class MenuController extends Controller
         } else{
             $level =0;
         }
-        if ($request->parent_id = null) {
+        if ($request->parent_id == null) {
             $id = 0;
         }else{
             $id =$request->parent_id;
