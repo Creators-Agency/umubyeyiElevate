@@ -32,7 +32,7 @@ class UserController extends Controller
     {
         $users = DB::table('users')
                     ->join('priviledges','users.priviledge','priviledges.id')
-                    ->where('priviledges.')
+                    ->where('priviledges.position',"!=",0)
                     ->get();
         if ($users) {
             return response()->json([
