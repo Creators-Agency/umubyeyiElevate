@@ -21,16 +21,19 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function h()
     {
         return response()->json([
             "message" => "Welcome to Elevate API - User"
         ]);
     }
 
-    public function expert()
+    public function index()
     {
-        $users = User::get();
+        $users = DB::table('users')
+                    ->join('priviledges','users.priviledge','priviledges.id')
+                    ->where('priviledges.')
+                    ->get();
         if ($users) {
             return response()->json([
                 "message" => "expert",
