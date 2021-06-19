@@ -12,6 +12,7 @@ use Redirect;
 use Validator;
 
 use App\Models\User;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -27,16 +28,18 @@ class UserController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function expert()
     {
+        $users = User::get();
+        if ($users) {
+            return response()->json([
+                "message" => "expert",
+                "payload" => $users
+            ],Response::HTTP_OK);
+        }
         return response()->json([
-            "message" => "Welcome to Elevate API - User"
-        ]);
+            "error" => "Oops! contact system admin",
+        ],Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
