@@ -23,6 +23,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ChatUserController;
+use App\Http\Controllers\NewsletterController;
 
 Route::get('/', function () {
     return response()->json([
@@ -210,3 +211,4 @@ Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chat-messages', [ChatMessageController::class, 'index']);
 Route::get('/pages', [PageController::class, 'index']);
 Route::get('/payments', [PaymentController::class, 'index']);
+Route::post('/newsletter', [NewsletterController::class, 'store']);
