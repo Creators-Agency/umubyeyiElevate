@@ -44,6 +44,18 @@ class ChatUserController extends Controller
         }
     }
 
+    public function leave($id)
+    {
+        $chatuser = ChatUser::find($id);
+        $chatuser->status = 0;
+        $chatuser->save();
+        if ($chatuser) {
+            return response()->json([
+                "message" => "Chat Left"
+            ],Response::HTTP_OK);
+        }
+    }
+
     public function revoke($id)
     {
         $chatuser = ChatUser::find($id);

@@ -145,6 +145,7 @@ Route::prefix('chats')->group(function () {
     Route::post('/request', [ChatUserController::class, 'requestToJoin']);
     Route::post('/user/revoke/{id}', [ChatUserController::class, 'revoke']);
     Route::post('/user/accept/{id}', [ChatUserController::class, 'accepting']);
+    Route::post('/user/leave/{id}', [ChatUserController::class, 'leave']);
     
 });
 

@@ -113,11 +113,13 @@ class MenuController extends Controller
      */
     public function show($program, $menu)
     {
-        $data = DB::table("menus")->join("programs", "programs.id","menus.program_id")->get();
+        $data = DB::table("menus")
+                    ->join("programs", "programs.id","menus.program_id")
+                    ->get();
         return response()->json([
             "message" => "topics by focus",
             "payload" => $data
-        ],Response::HTTP_ACCEPTED);
+        ],Response::HTTP_OK);
     }
 
     /**
