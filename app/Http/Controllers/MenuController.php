@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MenuController extends Controller
 {
@@ -109,9 +110,13 @@ class MenuController extends Controller
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Http\Response
      */
-    public function show(Menu $menu)
+    public function show($program, $menu)
     {
-        //
+        $data = DB::table("menus")->join("programs", "programs.id","menus.program_id")->get();
+        return response()->json([
+            "message" => "topics by focus",
+            "payload" => $data
+        ],Response::HTTP_ACCEPTED);
     }
 
     /**
