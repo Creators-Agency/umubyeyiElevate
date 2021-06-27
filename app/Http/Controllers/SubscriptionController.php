@@ -16,6 +16,7 @@ use Validator;
 
 use App\Models\Subscription;
 use App\Models\User;
+use Illuminate\Http\Response;
 
 class SubscriptionController extends Controller
 {
@@ -167,6 +168,51 @@ class SubscriptionController extends Controller
             ]);
         }
         
+    }
+
+    public function perUser($id)
+    {
+        $activeSub=[];
+        $data=[];
+        $offset=2*60*60; //converting 2 hours to seconds.
+        $dateFormat="Y-m-d";
+        $now = gmdate($dateFormat, time()+$offset);
+        $subscription = Subscription::where('user_id',$id)->orderBy('id','DESC')->get();
+        foreach($subscription as $sub){
+            if($sub->end_date <= $now){
+                $activeSub['id'] = $sub->id;
+                $activeSub['start_on'] = $sub->start_on;
+                $activeSub['end_on'] = $sub->end_on;
+                $activeSub['amount'] = $sub->amount;
+                $activeSub['status'] = $sub->status;
+                $activeSub['transactionID'] = $sub->transactionID;
+                 $joint = DB::table('program_packages')
+                    ->join('packages','packages.id','program_packages.package_id')
+                    ->join('programs','programs.id','program_packages.program_id')
+                    ->select(
+                        'programs.title as programTitle',
+                        'programs.id as programId',
+                        'packages.title as packagesTitle',
+                        'packages.id as packagesId',
+
+                    )
+                    ->where('program_packages.id',$sub->program_package_id)
+                    ->get();
+                $activeSub['packages_id'] = $joint[0]->packagesId;
+                $activeSub['packages_title'] = $joint[0]->packagesTitle;
+                $activeSub['program_id'] = $joint[0]->programId;
+                $activeSub['program_title'] = $joint[0]->programTitle;
+                $activeSub['program_package_id'] = $sub->program_package_id;
+                $activeSub['program_package_id'] = $sub->program_package_id;
+                $activeSub['user_id'] = $sub->user_id;
+                $activeSub['status'] = $sub->status;
+                array_push($data, $activeSub);
+            }
+        }
+        return response()->json([
+            "message" => "user subscription",
+            "payload" => $data
+        ],Response::HTTP_ACCEPTED);
     }
 
 

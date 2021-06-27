@@ -130,6 +130,7 @@ Route::prefix('package')->group(function () {
 Route::prefix('subscriptions')->group(function () {
     Route::get('/{package_id}/view/', [SubscriptionController::class, 'index']);
     Route::get('/{package_id}/view/{id}', [SubscriptionController::class, 'fetch']);
+    Route::get('/user/{user_id}/view', [SubscriptionController::class, 'perUser']);
     Route::post('/', [SubscriptionController::class, 'store']);
     Route::put('/{id}', [SubscriptionController::class, 'update']);
     Route::delete('/{id}', [SubscriptionController::class, 'delete']);
@@ -206,7 +207,6 @@ Route::get('/verify/{token}', [Verification::class, 'verify']);
  * resetting password
  */
 Route::get('users', [UserController::class, 'index']);
-// Route::get('expert', [UserController::class, 'expert']);
 Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chat-messages', [ChatMessageController::class, 'index']);
 Route::get('/pages', [PageController::class, 'index']);

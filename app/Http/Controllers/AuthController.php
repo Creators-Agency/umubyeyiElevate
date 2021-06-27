@@ -134,8 +134,6 @@ class AuthController extends Controller
         $now = gmdate($dateFormat, time()+$offset);
         $subscription = Subscription::where('user_id',$user->original->id)->orderBy('id','DESC')->get();
         foreach($subscription as $sub){
-            // return 
-        //    $data = date('d-m-Y', strtotime($sub->end_on));
             if($sub->end_date <= $now){
                 $activeSub['id'] = $sub->id;
                 $activeSub['start_on'] = $sub->start_on;
