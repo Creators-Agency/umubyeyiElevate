@@ -184,12 +184,12 @@ class ChatController extends Controller
                             )
                         ->get();
         return response()->json([
-            "subscribed" => $this->getSubscribed($user,$focusSub),
-            "unsubscribed" => $this->unSubscribed($user,$focusSub)
+            "subscribed" => $this->getSubscribed($user),
+            "unsubscribed" => $this->unSubscribed($user)
         ]);
     }
 
-    public function getSubscribed($user,$subscriptions)
+    public function getSubscribed($user)
     {
         // program_id
         // user_id
@@ -208,7 +208,7 @@ class ChatController extends Controller
         return $data[0];
         
     }
-    public function unSubscribed($user,$subscriptions)
+    public function unSubscribed($user)
     {
         $data = [];
         $programs = Program::get();
