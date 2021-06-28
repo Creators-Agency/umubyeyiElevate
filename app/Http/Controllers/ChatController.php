@@ -179,7 +179,7 @@ class ChatController extends Controller
                         ->join("programs","program_packages.program_id","programs.id")
                         ->where('subscriptions.user_id',$user)
                         ->select(
-                            "programs.id "
+                            "programs.id as p_id"
                             )
                         ->get();
         return response()->json([
