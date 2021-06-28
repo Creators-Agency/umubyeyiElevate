@@ -197,7 +197,7 @@ class ChatController extends Controller
             $chats = DB::table("chats")
                     ->join("users","chats.user_id","users.id")
                     ->where("chats.user_id",$user)
-                    ->where("chats.program_id",$sub->id)
+                    ->where("chats.program_id",$sub->p_id)
                     ->get();
             array_push($data,$chats);
         }
