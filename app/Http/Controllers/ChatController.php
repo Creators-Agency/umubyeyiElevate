@@ -213,7 +213,7 @@ class ChatController extends Controller
         $data = [];
         $programs = Program::get();
         foreach($programs as $program){
-            $chats = DB::table("chats")
+            return $chats = DB::table("chats")
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->where("chats.program_id",$program->id)
                     ->get();
