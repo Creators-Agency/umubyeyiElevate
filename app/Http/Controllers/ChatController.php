@@ -217,10 +217,10 @@ class ChatController extends Controller
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->where("chats.program_id",$program->id)
                     ->get();
-                    return $chats->user_id;
-                    if($chats->user_id != $user){
+                    // return $chats;
+                    // if($chats->user_id != $user){
                         array_push($data,$chats);
-                    }
+                    // }
             
         }
         return $data[0];
