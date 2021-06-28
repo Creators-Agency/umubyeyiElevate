@@ -211,12 +211,13 @@ class ChatController extends Controller
     public function unSubscribed($user,$subscriptions)
     {
         $data = [];
-        foreach($subscriptions as $sub){
+        $programs = Program::get();
+        foreach($programs as $program){
             $chats = DB::table("chats")
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->join("users","chat_users.user_id","users.id")
                     ->where("chats.user_id",'!=',$user)
-                    ->where("chats.program_id",$sub->p_id)
+                    ->where("chats.program_id",$program->id)
                     ->get();
             array_push($data,$chats);
         }
