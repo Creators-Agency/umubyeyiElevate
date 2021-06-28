@@ -183,7 +183,8 @@ class ChatController extends Controller
                             )
                         ->get();
         return response()->json([
-            "subscribed" => $this->getSubscribed($user,$focusSub)
+            "subscribed" => $this->getSubscribed($user,$focusSub),
+            "unsubscribed" => $this->unSubscribed($focusSub)
         ]);
     }
 
@@ -203,5 +204,17 @@ class ChatController extends Controller
         }
         return $data[0];
         
+    }
+    public function unSubscribed($subscriptions)
+    {
+        $data = [];
+        foreach($subscriptions as $sub){
+            $chats = DB::table("chats")
+                    ->join("users","chats.user_id","users.id")
+                    ->where("chats.program_id",$sub->p_id)
+                    ->get();
+            array_push($data,$chats);
+        }
+        return $data[0];
     }
 }
