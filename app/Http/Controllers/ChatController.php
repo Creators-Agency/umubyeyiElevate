@@ -175,8 +175,8 @@ class ChatController extends Controller
     public function displayChat($user)
     {
         $focusSub = DB::table("subscriptions")
-                        ->join("programs","programs.id","subscriptions.program_id")
-                        ->join("program_packages","program_packages.program_id","programs.id")
+                        ->join("program_packages","program_packages.id","subscriptions.program_package_id")
+                        // ->join("program_packages","program_packages.program_id","programs.id")
                         ->where('subscriptions.user_id',$user)
                         ->get();
         return response()->json([
