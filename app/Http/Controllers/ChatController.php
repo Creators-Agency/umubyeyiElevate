@@ -13,6 +13,7 @@ use Redirect;
 use Validator;
 
 use App\Models\Chat;
+use App\Models\Program;
 
 class ChatController extends Controller
 {
@@ -194,11 +195,12 @@ class ChatController extends Controller
         // user_id
         $array = [];
         $data = [];
-        foreach($subscriptions as $sub){
+        $programs = Program::get();
+        foreach($$programs as $program){
             $chats = DB::table("chats")
                     ->join("users","chats.user_id","users.id")
                     ->where("chats.user_id",$user)
-                    ->where("chats.program_id",$sub->p_id)
+                    ->where("chats.program_id",$$program->id)
                     ->get();
             array_push($data,$chats);
         }
