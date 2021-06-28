@@ -171,4 +171,32 @@ class ChatController extends Controller
             ]);
         }
     }
+
+    public function displayChat($user)
+    {
+        $focusSub = DB::table("subscriptions")
+                        ->join("programs","programs.id","subscriptions.program_id")
+                        ->where('user_id',$user)
+                        ->get();
+        return response()->json([
+            "subscribed" => $this->getSubscribed($user,$focusSub)
+        ]);
+    }
+
+    public function getSubscribed($user,$subscriptions)
+    {
+        // program_id
+        // user_id
+        $array = [];
+        $data = [];
+        foreach($subscriptions as $sub){
+            $chats = DB::table("chats")
+                    ->join("users","chats.user_id","users.id")
+                    ->where("users.id",$user)
+                    ->get();
+            array_push($data,$chats);
+        }
+        return $data;
+        
+    }
 }

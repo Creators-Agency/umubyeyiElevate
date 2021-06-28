@@ -59,6 +59,7 @@ class MenuController extends Controller
         $menu->program_id = $request->program_id;
         $menu->user_id = $request->user_id;
         $menu->level = $level;
+        $menu->description = $request->description;
         if($menu->save()){
             $menu = Menu::orderBy('id','DESC')->first();
             return response()->json([
@@ -89,6 +90,7 @@ class MenuController extends Controller
         $menu->status = $request->status;
         $menu->program_id = $request->program_id;
         $menu->user_id = $request->user_id;
+        $menu->description = $request->description;
         if($menu->save()){
             $menu = Menu::where(['id'=>$id])->first();
             return response()->json([
