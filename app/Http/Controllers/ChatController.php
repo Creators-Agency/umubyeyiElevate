@@ -197,7 +197,7 @@ class ChatController extends Controller
                     ->get();
             array_push($data,$chats);
         }
-        return $data;
+        return $data[0];
         
     }
 }
