@@ -176,7 +176,7 @@ class ChatController extends Controller
     {
         $focusSub = DB::table("subscriptions")
                         ->join("programs","programs.id","subscriptions.program_id")
-                        ->where('user_id',$user)
+                        ->where('subscriptions.user_id',$user)
                         ->get();
         return response()->json([
             "subscribed" => $this->getSubscribed($user,$focusSub)
