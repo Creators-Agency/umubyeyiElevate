@@ -198,7 +198,8 @@ class ChatController extends Controller
         $programs = Program::get();
         foreach($programs as $program){
             $chats = DB::table("chats")
-                    ->join("users","chats.user_id","users.id")
+                    ->join("chat_users","chats.id","chat_users.chat_id")
+                    ->join("users","chat_users.user_id","users.id")
                     ->where("chats.user_id",$user)
                     ->where("chats.program_id",$program->id)
                     ->get();
@@ -212,7 +213,8 @@ class ChatController extends Controller
         $data = [];
         foreach($subscriptions as $sub){
             $chats = DB::table("chats")
-                    ->join("users","chats.user_id","users.id")
+                    ->join("chat_users","chats.id","chat_users.chat_id")
+                    ->join("users","chat_users.user_id","users.id")
                     ->where("chats.user_id",'!=',$user)
                     ->where("chats.program_id",$sub->p_id)
                     ->get();
