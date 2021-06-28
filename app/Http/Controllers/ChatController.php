@@ -178,6 +178,9 @@ class ChatController extends Controller
                         ->join("program_packages","program_packages.id","subscriptions.program_package_id")
                         ->join("programs","program_packages.program_id","programs.id")
                         ->where('subscriptions.user_id',$user)
+                        ->select(
+                            "programs.id "
+                            )
                         ->get();
         return response()->json([
             "subscribed" => $this->getSubscribed($user,$focusSub)
@@ -193,7 +196,8 @@ class ChatController extends Controller
         foreach($subscriptions as $sub){
             $chats = DB::table("chats")
                     ->join("users","chats.user_id","users.id")
-                    ->where("users.id",$user)
+                    ->where("chats.user_id",$user)
+                    ->where("chats.program_id",$sub->id)
                     ->get();
             array_push($data,$chats);
         }
