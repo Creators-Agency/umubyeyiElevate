@@ -15,6 +15,7 @@ use Validator;
 use App\Models\Chat;
 use App\Models\ChatUser;
 use App\Models\Program;
+use Illuminate\Http\Response;
 
 class ChatController extends Controller
 {
@@ -23,6 +24,15 @@ class ChatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function list()
+    {
+        $chats = Chat::get();
+        return response()->json([
+            'message' => 'Successfuly Fetched all Chats',
+            'payload' => $chats,
+        ],Response::HTTP_OK);
+    }
     public function index($program_id)
     {
        $program = DB::table('programs')
