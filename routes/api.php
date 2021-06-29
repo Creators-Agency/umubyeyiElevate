@@ -138,7 +138,7 @@ Route::prefix('subscriptions')->group(function () {
 
 Route::prefix('chats')->group(function () {
     Route::get('/', [ChatController::class, 'list']);
-    Route::get('/{program_id}/view/', [ChatController::class, 'index']);
+    // Route::get('/{program_id}/view/', [ChatController::class, 'index']);
     Route::get('/{program_id}/view/{id}', [ChatController::class, 'fetch']);
     Route::post('/', [ChatController::class, 'store']);
     Route::put('/{id}', [ChatController::class, 'update']);
@@ -210,7 +210,7 @@ Route::get('/verify/{token}', [Verification::class, 'verify']);
  * resetting password
  */
 Route::get('users', [UserController::class, 'index']);
-Route::get('/chats', [ChatController::class, 'index']);
+// Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chat-messages', [ChatMessageController::class, 'index']);
 Route::get('/pages', [PageController::class, 'index']);
 Route::get('/payments', [PaymentController::class, 'index']);
