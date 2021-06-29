@@ -176,7 +176,7 @@ Route::prefix('dashboard')->group(function () {
 
 
 Route::prefix('blogs')->group(function () {
-    Route::get('/view', [BlogController::class, 'fetch']);
+    Route::get('/view', [BlogController::class, 'list']);
     Route::get('/view/{id}', [BlogController::class, 'fetch']);
     Route::get('/{program_id}/view/', [BlogController::class, 'index']);
     Route::post('/', [BlogController::class, 'store']);
