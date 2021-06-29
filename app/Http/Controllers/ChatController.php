@@ -13,6 +13,7 @@ use Redirect;
 use Validator;
 
 use App\Models\Chat;
+use App\Models\ChatUser;
 use App\Models\Program;
 
 class ChatController extends Controller
@@ -175,14 +176,14 @@ class ChatController extends Controller
 
     public function displayChat($user)
     {
-        $focusSub = DB::table("subscriptions")
-                        ->join("program_packages","program_packages.id","subscriptions.program_package_id")
-                        ->join("programs","program_packages.program_id","programs.id")
-                        ->where('subscriptions.user_id',$user)
-                        ->select(
-                            "programs.id as p_id"
-                            )
-                        ->get();
+        // $focusSub = DB::table("subscriptions")
+        //                 ->join("program_packages","program_packages.id","subscriptions.program_package_id")
+        //                 ->join("programs","program_packages.program_id","programs.id")
+        //                 ->where('subscriptions.user_id',$user)
+        //                 ->select(
+        //                     "programs.id as p_id"
+        //                     )
+        //                 ->get();
         return response()->json([
             "subscribed" => $this->getSubscribed($user),
             "unsubscribed" => $this->unSubscribed($user)
@@ -193,6 +194,7 @@ class ChatController extends Controller
     {
         // program_id
         // user_id
+        // return ChatUser::get();
         $array = [];
         $data = [];
         $programs = Program::get();
@@ -200,12 +202,14 @@ class ChatController extends Controller
             $chats = DB::table("chats")
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->join("users","chat_users.user_id","users.id")
-                    ->where("chats.user_id",$user)
+                    ->where("chat_users.user_id",$user)
+                    ->where("chat_users.status",1)
                     ->where("chats.program_id",$program->id)
                     ->get();
             array_push($data,$chats);
         }
-        return $data[0];
+        if($data)
+            return $data[0];
         
     }
     public function unSubscribed($user)
@@ -213,23 +217,25 @@ class ChatController extends Controller
         $data = [];
         $programs = Program::get();
         foreach($programs as $program){
-            return $chats = DB::table("chats")
+              $chats = DB::table("chats")
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->join("users","chat_users.user_id","users.id")
-                    ->where("chats.user_id",$user)
+                    ->where("chat_users.user_id",$user)
+                    ->where("chat_users.status",1)
                     ->where("chats.program_id",$program->id)
                     ->select(
                         "chat_users.chat_id as chat"
                     )
                     ->get();
-                    foreach($chats as $chat){
-                         $single = Chat::where('id',"!=",$chat->chat)->get();
-                         array_push($single,$data);
-                    }
-           
 
+                    // return $chats->chat;
+                    foreach($chats as $chat){
+                        $single = Chat::where("id",'!=',$chat->chat)->get();
+                         array_push($data,$single);
+                    }
             
         }
+        if ($data) 
         return $data[0];
     }
 }
