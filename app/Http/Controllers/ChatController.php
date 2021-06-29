@@ -74,14 +74,12 @@ class ChatController extends Controller
             return response()->json([
                 'message' => 'Successfully create a Chat ',
                 'payload' => $Chat,
-                'status' => 200,
-            ]);
+            ],Response::HTTP_CREATED);
         }else{
             return response()->json([
                 'message' => 'Failed to create a Chat ',
                 'payload' => $request,
-                'status' => 500,
-            ]);
+            ],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
