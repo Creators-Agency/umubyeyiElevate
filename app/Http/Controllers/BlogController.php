@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BlogController extends Controller
 {
@@ -46,14 +47,12 @@ class BlogController extends Controller
             return response()->json([
                 'message' => 'Successfuly Fetched all Blogs',
                 'payload' => $Blog,
-                'status' => 201,
-            ]);
+            ],Response::HTTP_CREATED);
         }else{
             return response()->json([
                 'message' => 'Failed to create a Blog',
                 'payload' => $request,
-                'status' => 501,
-            ]);
+            ],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
          
     }
@@ -129,16 +128,14 @@ class BlogController extends Controller
             return response()->json([
                 'message' => 'Successfully delete a Blog by id: '.$id,
                 'payload' => $deleteBlog,
-                'status' => 200,
-            ]);
+            ],Response::HTTP_OK);
         }else{
             return response()->json([
                 'message' => 'Failed to delete a Blog',
                 'payload' => array(
                     'id' => $id
                 ),
-                'status' => 500,
-            ]);
+            ],Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 }

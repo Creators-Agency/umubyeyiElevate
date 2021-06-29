@@ -138,7 +138,7 @@ Route::prefix('subscriptions')->group(function () {
 
 Route::prefix('chats')->group(function () {
     Route::get('/', [ChatController::class, 'list']);
-    // Route::get('/{program_id}/view/', [ChatController::class, 'index']);
+    Route::get('/{program_id}/view/', [ChatController::class, 'index']);
     Route::get('/{program_id}/view/{id}', [ChatController::class, 'fetch']);
     Route::post('/', [ChatController::class, 'store']);
     Route::put('/{id}', [ChatController::class, 'update']);
