@@ -228,7 +228,6 @@ class ChatController extends Controller
                     )
                     ->get();
 
-                    // return $chats->chat;
                     foreach($chats as $chat){
                         $single = Chat::where("id",'!=',$chat->chat)->get();
                          array_push($data,$single);
@@ -236,6 +235,6 @@ class ChatController extends Controller
             
         }
         if ($data) 
-        return $data[0];
+            return $data[0];
     }
 }
