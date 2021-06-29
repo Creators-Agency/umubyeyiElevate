@@ -211,7 +211,7 @@ class ChatController extends Controller
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->join("users","chat_users.user_id","users.id")
                     ->where("chat_users.user_id",$user)
-                    ->where("chat_users.status",1)
+                    // ->where("chat_users.status",1)
                     ->where("chats.program_id",$program->id)
                     ->get();
             array_push($data,$chats);
@@ -229,7 +229,7 @@ class ChatController extends Controller
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->join("users","chat_users.user_id","users.id")
                     ->where("chat_users.user_id",$user)
-                    ->where("chat_users.status",1)
+                    // ->where("chat_users.status",1)
                     ->where("chats.program_id",$program->id)
                     ->select(
                         "chat_users.chat_id as chat"
