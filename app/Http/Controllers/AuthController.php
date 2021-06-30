@@ -84,6 +84,45 @@ class AuthController extends Controller
         return $this->login($request);
     }
 
+    public function admin(REQUEST $request)
+    {
+        $priv = Priviledge::where('position',$request->priviledge)->first();
+        if (!$priv) {
+            return response()->json([
+                'error' => "Permission not found"
+            ],Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        /**
+         * to do
+         * -----
+         * message for verification
+         */
+        $token = time().rand(100,0);
+        $password = rand(0,10);
+        $created= User::create([
+            'name'=>$request->name,
+            'password'=>$password,
+            'email'=>$request->email,
+            'telephone'=>$request->telephone,
+            'verify_token'=>$token,
+            'verified'=>$request->verified,
+            'priviledge'=>$priv->position
+            ]);
+        if ($created) {
+            // if ($request->verificationWay === 0) {
+            //     $this->sendBulk($created->telephone,$token);
+            // }else{
+            //     $this->sendEmail($request->email,$token);
+            // }
+            $this->sendLogin($password);
+        }
+    }
+
+    public function sendLogin($password)
+    {
+        return $password;
+    }
+
     /**
      * Get the authenticated User
      *

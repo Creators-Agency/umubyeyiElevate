@@ -43,6 +43,7 @@ Route::group([
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('register', 'AuthController@register');
+    Route::post('admin', 'AuthController@admin');
     Route::post('profile', 'AuthController@me');
     Route::post('profile/password/reset', 'ResetPasswordController@resetProfile');
 });
