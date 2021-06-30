@@ -24,6 +24,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\ChatUserController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\TestimonialController;
 
 Route::get('/', function () {
     return response()->json([
@@ -191,6 +192,14 @@ Route::prefix('priviledges')->group(function () {
     Route::post('/', [PriviledgeController::class, 'store']);
     Route::put('/{id}', [PriviledgeController::class, 'update']);
     Route::delete('/{id}', [PriviledgeController::class, 'delete']);
+});
+
+Route::prefix('testimonials')->group(function () {
+    Route::get('/', [TestimonialController::class, 'index']);
+    Route::get('/view/{id}', [TestimonialController::class, 'fetch']);
+    Route::post('/', [TestimonialController::class, 'store']);
+    Route::put('/{id}', [TestimonialController::class, 'update']);
+    Route::delete('/{id}', [TestimonialController::class, 'delete']);
 });
 
 
