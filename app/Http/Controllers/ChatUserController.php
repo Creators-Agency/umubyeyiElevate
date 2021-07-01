@@ -94,4 +94,9 @@ class ChatUserController extends Controller
             ],Response::HTTP_OK);
         }
     }
+
+    public function all()
+    {
+        return ChatUser::get();
+    }
 }

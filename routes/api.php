@@ -150,6 +150,7 @@ Route::prefix('chats')->group(function () {
     Route::post('/user/accept/', [ChatUserController::class, 'accepting']);
     Route::post('/user/leave/', [ChatUserController::class, 'leave']);
     Route::get('/user/{id}', [ChatController::class, 'displayChat']);
+    Route::get('/user', [ChatUserController::class, 'all']);
     
 });
 
