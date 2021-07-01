@@ -211,6 +211,9 @@ class ChatController extends Controller
                     ->join("users","chat_users.user_id","users.id")
                     ->where("chat_users.user_id",$user)
                     // ->where("chat_users.status",1)
+                    ->select(
+                        "chats.id as id"
+                    )
                     ->get();
             array_push($data,$chats);
         if($data)
@@ -219,40 +222,65 @@ class ChatController extends Controller
     }
     public function unSubscribed($user)
     {
-        $data = [];
+        $data_ = [];
         $subchat = [];
+        $hello=[];
         $programs = Program::get();
-        foreach($programs as $program){
                 $chats = DB::table("chats")
                     // ->join("chat_users","chats.id","chat_users.chat_id")
                     // ->join("users","chat_users.user_id","users.id")
-                    // ->where("chat_users.user_id",$user)
+                    // ->where("chat_users.user_id","!=",$user)
                     // ->where("chat_users.status",1)
-                    ->where("chats.program_id",$program->id)
-                    ->select(
-                        "chats.id as id"
-                    )
-                    ->first();
-                    if ($chats) {
-                        array_push($subchat,$chats);
-                    }
-        }
-        return $subchat;
-        $singles = Chat::get();
-        if ($subchat) {
-            foreach($singles as $single ){
-                foreach($subchat as $chat){
-                    // return $chat;
-                    if ($single->id !== $chat->id) {
-                        array_push($data,$single);
-                    }
-                }
-            }
-        }else{
-            array_push($data,$singles);
-        }
+                    // ->where("chats.program_id",$program->id)
+                    // ->select(
+                    //     "chats.id as id"
+                    // )
+                    ->get();
+                    $h = ChatUser::where('user_id',$user)->get();
+                        foreach($chats as $chat){
+                            foreach($h as $d){
+                                if($chat->id == $d->chat_id){
+                                    
+                                }else {
+                                    array_push($data_,$chat);
+                                }
+                            }
+                        }
+                    // if ($chats) {
+                    //     array_push($subchat,$chats);
+                    // }
+        // return $subchat;
+        // $singles = Chat::select(
+        //                 "chats.id as id"
+        //             )
+        // ->get();
+        // if ($subchat) {
+        //     foreach($singles as $single){
+        //         array_push($hello,$single);
+                 
+        //     }
+        //     array_push($data_,$hello[0]);
+        // }else{
+        //     array_push($data_,$singles);
+        // }
+
+        // $chats = Chat::where('status',1)->get();
+        // $data = [];
+        // $get_data = [];
+        // foreach ($chats as $chat) {
+        //     $get = ChatUser::where('user_id', $user)->get();
+        //     $price = 0;
+        //     foreach ($get as $value) {
+        //         $type = SolarPanelType::where('id',$value->solarPanelType)->first();
+        //         $price = $price + $type->price;
+        //     }
+        //     $get_data['location'] = $chat->locationName;
+        //     $get_data['product'] = count($get);
+        //     $get_data['price'] = number_format($price);
+        //     array_push($data, $get_data);
+        // }
            
-        if ($data) 
-            return $data[0];
+        if ($data_) 
+            return $data_[0];
     }
 }
