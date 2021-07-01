@@ -109,13 +109,14 @@ class AuthController extends Controller
             'priviledge'=>$priv->position
             ]);
         if ($created) {
-            // if ($request->verificationWay === 0) {
-            //     $this->sendBulk($created->telephone,$token);
-            // }else{
-            //     $this->sendEmail($request->email,$token);
-            // }
             $this->sendLogin($password);
+            return response()->json([
+                "message" => "created successfuly"
+            ],Response::HTTP_CREATED);
         }
+        return response()->json([
+            "error" => "failed"
+        ],Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     public function sendLogin($password)
