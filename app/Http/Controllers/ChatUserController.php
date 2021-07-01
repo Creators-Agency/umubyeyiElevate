@@ -71,7 +71,7 @@ class ChatUserController extends Controller
                 "message" => "Record not found!"
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
-        $chatuser = ChatUser::where(['chat_id'=>$request->chat_id,'user_id'=>$request->user_id])->update(['status' => 0]);
+        $chatuser = ChatUser::where(['chat_id'=>$request->chat_id,'user_id'=>$request->user_id])->delete();
         if ($chatuser) {
             return response()->json([
                 "message" => "Chat Left"
