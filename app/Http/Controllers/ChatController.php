@@ -246,7 +246,7 @@ class ChatController extends Controller
         if ($subchat) {
             foreach($singles as $single ){
                 foreach($subchat as $chat){
-                    if ($single->id !=$chat->chat) {
+                    if ($single->id !=$chat->id) {
                         array_push($data,$single);
                     }
                 }
