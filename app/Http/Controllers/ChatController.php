@@ -223,6 +223,7 @@ class ChatController extends Controller
     public function unSubscribed($user)
     {
         $data = [];
+        $subchat = [];
         $programs = Program::get();
         foreach($programs as $program){
               $chats = DB::table("chats")
@@ -235,13 +236,22 @@ class ChatController extends Controller
                         "chat_users.chat_id as chat"
                     )
                     ->get();
-
-                    foreach($chats as $chat){
-                        $single = Chat::where("id",'!=',$chat->chat)->get();
-                         array_push($data,$single);
-                    }
+                    array_push($subchat,$chats);
             
         }
+        $singles = Chat::get();
+        if ($subchat) {
+            foreach($singles as $single ){
+                foreach($subchat as $chat){
+                    if ($single->id !=$chat->chat) {
+                        array_push($data,$single);
+                    }
+                }
+            }
+        }else{
+            array_push($data,$singles);
+        }
+           
         if ($data) 
             return $data[0];
     }
