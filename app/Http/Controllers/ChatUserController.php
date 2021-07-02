@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChatUserRequest;
+use App\Models\Chat;
 use App\Models\ChatUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -98,5 +99,20 @@ class ChatUserController extends Controller
     public function all()
     {
         return ChatUser::get();
+    }
+
+    public function byExpert($id)
+    {
+        $chat = Chat::where(['user_id'=>$id])->get();
+        if ($chat) {
+            return response()->json([
+                "message" => "chat",
+                "payload" => $chat
+            ],Response::HTTP_OK);
+        }
+        return response()->json([
+            "error" => "expert not found!"
+        ],Response::HTTP_NOT_FOUND);
+        
     }
 }
