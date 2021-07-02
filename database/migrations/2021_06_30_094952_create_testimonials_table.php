@@ -17,7 +17,7 @@ class CreateTestimonialsTable extends Migration
             $table->id();
             $table->string('names')->unique();
             $table->string('profession');
-            $table->string('message');
+            $table->longText('message');
             $table->integer('status');
             $table->timestamps();
         });

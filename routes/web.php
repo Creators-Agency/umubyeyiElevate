@@ -26,7 +26,7 @@ Route::get('/dev-1234',function()
     {
         $alldata=[];
 
-        Schema::table('menus', function($table) use ($alldata)
+        Schema::table('testimonials', function($table) use ($alldata)
         {
             /**
              * payouts
@@ -35,7 +35,7 @@ Route::get('/dev-1234',function()
 
             // $table->longText('description')->after('menu_name');
             // $table->dropUnique(['clientNames'])->unique(false)->change();
-            $table->longText('description')->change();
+            $table->longText('message')->change();
             // $table->integer('moreInfo')->after('status')->default(0);
         });
     }
