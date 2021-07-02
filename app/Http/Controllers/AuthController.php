@@ -98,7 +98,8 @@ class AuthController extends Controller
          * message for verification
          */
         $token = time().rand(100,0);
-        $password = rand(0,10);
+        // $password = rand(0,10);
+        $password = "1234";
         $created= User::create([
             'name'=>$request->name,
             'password'=>$password,

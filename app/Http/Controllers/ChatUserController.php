@@ -65,7 +65,7 @@ class ChatUserController extends Controller
 
     public function leave(REQUEST $request)
     {
-        $checkAvailable = ChatUser::where('chat_id',$request->chat_id)->where('user_id',$request->user_id)->first();
+        $checkAvailable = ChatUser::where(['chat_id'=>$request->chat_id,'user_id'=>$request->user_id])->first();
         if (!$checkAvailable) {
             return response()->json([
                 "message" => "Record not found!"
