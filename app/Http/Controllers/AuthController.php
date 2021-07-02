@@ -253,4 +253,16 @@ class AuthController extends Controller
     {
         return $phone;
     }
+
+    public function expert()
+    {
+        $expert = User::where(['priviledge'=>2])->get();
+        return response()->json([
+            "message" => "expert",
+            "payload" => $expert
+        ],Response::HTTP_OK);
+        return response()->json([
+            "error" => "not found"
+        ],Response::HTTP_NOT_FOUND);
+    }
 }
