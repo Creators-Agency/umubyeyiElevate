@@ -7,6 +7,7 @@ use App\Models\Chat;
 use App\Models\ChatUser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use DB;
 
 class ChatUserController extends Controller
 {
