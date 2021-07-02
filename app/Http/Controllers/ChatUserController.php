@@ -125,6 +125,7 @@ class ChatUserController extends Controller
                     ->join('chats','chats.id','chat_users.chat_id')
                     ->join('users','users.id','chat_users.user_id')
                     ->where("chats.user_id",$id)
+                    ->where("chat_users.status",0)
                     ->select(
                         "chat_users.user_id as client_id",
                         "chat_users.chat_id as chat_id",
