@@ -65,9 +65,9 @@ class ChatController extends Controller
         $Chat = new Chat();
         $Chat->title = $request->title;
         $Chat->description = $request->description;
-        $Chat->picture_url = "you";
+        $Chat->picture_url = "url";
         $Chat->program_id = $request->program_id;
-        $Chat->user_id = 1;
+        $Chat->user_id = $request->user_id;
         $Chat->status = 1;
         $Chat->save();
         if($Chat){
