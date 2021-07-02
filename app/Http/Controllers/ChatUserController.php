@@ -124,6 +124,10 @@ class ChatUserController extends Controller
         $chat = DB::table('chat_users')
                     ->join('chats','chats.id','chat_users.chat_id')
                     ->where("chats.user_id",$id)
+                    ->select(
+                        "chat_users.user_id as client_id",
+                        "chat_users.chat_id as chat_id",
+                    )
                     ->get();
         if ($chat) {
             return response()->json([
