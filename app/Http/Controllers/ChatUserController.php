@@ -123,10 +123,13 @@ class ChatUserController extends Controller
         // $chat = ChatUser::where(['user_id'=>$id])->get();
         $chat = DB::table('chat_users')
                     ->join('chats','chats.id','chat_users.chat_id')
+                    ->join('users','users.id','chat_users.user_id')
                     ->where("chats.user_id",$id)
                     ->select(
                         "chat_users.user_id as client_id",
                         "chat_users.chat_id as chat_id",
+                        "users.name as client_name",
+                        "chats.title as chat_name"
                     )
                     ->get();
         if ($chat) {
