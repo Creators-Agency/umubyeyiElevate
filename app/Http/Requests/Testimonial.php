@@ -25,7 +25,7 @@ class Testimonial extends FormRequest
     public function rules()
     {
         return [
-            'message' => 'required|min:20|max:200',
+            'message' => 'required|min:20',
         ];
     }
 
