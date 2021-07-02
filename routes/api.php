@@ -154,6 +154,7 @@ Route::prefix('chats')->group(function () {
     Route::get('/user/{id}', [ChatController::class, 'displayChat']);
     Route::get('/user', [ChatUserController::class, 'all']);
     Route::get('/expert/{id}', [ChatUserController::class, 'byExpert']);
+    Route::get('/expert/request/{id}', [ChatUserController::class, 'byExpertRequest']);
     
 });
 

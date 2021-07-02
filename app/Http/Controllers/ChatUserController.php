@@ -116,4 +116,23 @@ class ChatUserController extends Controller
         ],Response::HTTP_NOT_FOUND);
         
     }
+
+    public function byExpertRequest($id)
+    {
+        // $chat = ChatUser::where(['user_id'=>$id])->get();
+        $chat = DB::table('chat_users')
+                    ->join('chats','chats.id','chat_users.chat_id')
+                    ->where("chats.user_id",$id)
+                    ->get();
+        if ($chat) {
+            return response()->json([
+                "message" => "request",
+                "payload" => $chat
+            ],Response::HTTP_OK);
+        }
+        return response()->json([
+            "error" => "expert not found!"
+        ],Response::HTTP_NOT_FOUND);
+        
+    }
 }
