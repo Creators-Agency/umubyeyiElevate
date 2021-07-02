@@ -21,6 +21,7 @@ class ChatUserController extends Controller
         $chatuser = new ChatUser();
         $chatuser->chat_id = $request->chat_id;
         $chatuser->user_id = $request->user_id;
+        $chatuser->status = 0;
         $chatuser->save();
         if ($chatuser) {
             return response()->json([

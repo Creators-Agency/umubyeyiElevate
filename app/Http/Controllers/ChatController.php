@@ -200,20 +200,13 @@ class ChatController extends Controller
 
     public function getSubscribed($user)
     {
-        // program_id
-        // user_id
-        // return ChatUser::get();
         $array = [];
         $data = [];
-        // $programs = Program::get();
             $chats = DB::table("chats")
                     ->join("chat_users","chats.id","chat_users.chat_id")
                     ->join("users","chat_users.user_id","users.id")
                     ->where("chat_users.user_id",$user)
-                    // ->where("chat_users.status",1)
-                    // ->select(
-                    //     "chats.id as id"
-                    // )
+                    ->where("chat_users.status",1)
                     ->get();
             array_push($data,$chats);
         if($data)
