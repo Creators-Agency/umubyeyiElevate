@@ -33,7 +33,9 @@ Route::get('/dev-1234',function()
              * solar_panels
              */
 
-            $table->longText('description')->after('menu_name');
+            // $table->longText('description')->after('menu_name');
+            // $table->dropUnique(['clientNames'])->unique(false)->change();
+            $table->longText('description')->change();
             // $table->integer('moreInfo')->after('status')->default(0);
         });
     }
