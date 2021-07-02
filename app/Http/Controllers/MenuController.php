@@ -33,6 +33,21 @@ class MenuController extends Controller
         ]);
     }
 
+    public function byFocusSingle($id)
+    {
+        $menu = Menu::where(['id'=>$id])->first();
+        if ($menu) {
+            return response()->json([
+                "message" => "Single topic ",
+                "payload" => $menu
+            ],Response::HTTP_OK);
+        }
+        return response()->json([
+            "error" => "not found!",
+        ],Response::HTTP_NOT_FOUND);
+
+    }
+
     /**
      * Show the form for creating a new resource.
      *
