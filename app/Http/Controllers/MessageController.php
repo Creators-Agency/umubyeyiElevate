@@ -14,7 +14,6 @@ class MessageController extends Controller
 {
     public function index($chat_id)
     {
-        // $message = ChatMessage::where('chat_id',$chat_id)->get();
         $message = DB::table('chat_messages')
                     ->join("users","users.id","chat_messages.user_id")
                     ->where('chat_messages.chat_id',$chat_id)
