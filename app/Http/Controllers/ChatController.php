@@ -184,14 +184,6 @@ class ChatController extends Controller
 
     public function displayChat($user)
     {
-        // $focusSub = DB::table("subscriptions")
-        //                 ->join("program_packages","program_packages.id","subscriptions.program_package_id")
-        //                 ->join("programs","program_packages.program_id","programs.id")
-        //                 ->where('subscriptions.user_id',$user)
-        //                 ->select(
-        //                     "programs.id as p_id"
-        //                     )
-        //                 ->get();
         return response()->json([
             "subscribed" => $this->getSubscribed($user),
             "unsubscribed" => $this->unSubscribed($user)
