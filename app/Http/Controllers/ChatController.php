@@ -199,7 +199,7 @@ class ChatController extends Controller
                     ->join("users","chat_users.user_id","users.id")
                     ->select(
                         "chats.id as chat_id",
-                        "chat_users.id chatUser_id",
+                        "chat_users.id as chatUser_id",
                         "users.id as user_id"
                     )
                     ->where("chat_users.user_id",$user)
@@ -212,7 +212,7 @@ class ChatController extends Controller
     }
     public function unSubscribed($user)
     {
-        $test = "SELECT chats.id as chat_id,chat_users.id chatUser_id FROM chats LEFT JOIN chat_users ON (chats.id = chat_users.chat_id) WHERE chat_users.user_id IS NULL";
+        $test = "SELECT chats.id as chat_id,chat_users.id as chatUser_id FROM chats LEFT JOIN chat_users ON (chats.id = chat_users.chat_id) WHERE chat_users.user_id IS NULL";
         return  DB::select(DB::raw($test));
     }
 }
