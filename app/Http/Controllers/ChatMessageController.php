@@ -30,7 +30,7 @@ class ChatMessageController extends Controller
         
         $message = DB::table('chat_messages')
                 ->join("users","users.id","chat_messages.user_id")
-                ->where('chat_messages.chat_id',$chat_id)
+                ->where('chat_messages.chat_id',$chatID)
                 ->select(
                     "chat_messages.id as id",
                     "chat_messages.content as content",
