@@ -137,7 +137,9 @@ class ChatUserController extends Controller
                         "chat_users.user_id as client_id",
                         "chat_users.chat_id as chat_id",
                         "users.name as client_name",
-                        "chats.title as chat_name"
+                        "chats.title as chat_name",
+                        "chats.program_id as program",
+                        "chat_users.id as record_id"
                     )
                     ->get();
         if ($chat) {
@@ -159,7 +161,9 @@ class ChatUserController extends Controller
                         "chat_users.chat_id as chat_id",
                         "users.name as client_name",
                         "chats.title as chat_name",
-                        "chats.program_id as program"
+                        "chats.program_id as program",
+                        "chat_users.id as record_id"
+
                     )
                     ->get();
         if ($chat) {
