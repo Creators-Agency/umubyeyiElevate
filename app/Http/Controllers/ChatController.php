@@ -212,7 +212,7 @@ class ChatController extends Controller
     }
     public function unSubscribed($user)
     {
-        $test = "SELECT chats.* FROM chats LEFT JOIN chat_users ON (chats.id != chat_users.chat_id) WHERE chat_users.user_id IS NULL";
+        $test = "SELECT chats.* FROM chats LEFT JOIN chat_users ON (chats.id = chat_users.chat_id)";
         return  DB::select(DB::raw($test));
     }
 }
