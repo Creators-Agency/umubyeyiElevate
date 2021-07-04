@@ -120,7 +120,14 @@ class ChatUserController extends Controller
 
     public function byExpertRequest($id)
     {
-        // $chat = ChatUser::where(['user_id'=>$id])->get();
+        return response()->json([
+            "message" => "request",
+            "request" => $this->requested($id),
+            "approved" => $this->approved($id),
+        ],Response::HTTP_OK);   
+    }
+    public function requested($id)
+    {
         $chat = DB::table('chat_users')
                     ->join('chats','chats.id','chat_users.chat_id')
                     ->join('users','users.id','chat_users.user_id')
@@ -134,14 +141,29 @@ class ChatUserController extends Controller
                     )
                     ->get();
         if ($chat) {
-            return response()->json([
-                "message" => "request",
-                "payload" => $chat
-            ],Response::HTTP_OK);
+            return $chat;
         }
-        return response()->json([
-            "error" => "expert not found!"
-        ],Response::HTTP_NOT_FOUND);
+        return NULL;
         
+    }
+
+    public function approved($id)
+    {
+        $chat = DB::table('chat_users')
+                    ->join('chats','chats.id','chat_users.chat_id')
+                    ->join('users','users.id','chat_users.user_id')
+                    ->where("chats.user_id",$id)
+                    ->where("chat_users.status",1)
+                    ->select(
+                        "chat_users.user_id as client_id",
+                        "chat_users.chat_id as chat_id",
+                        "users.name as client_name",
+                        "chats.title as chat_name"
+                    )
+                    ->get();
+        if ($chat) {
+            return $chat;
+        }
+        return NULL;
     }
 }
