@@ -106,9 +106,6 @@ class ChatUserController extends Controller
     public function byExpert($id)
     {
         $chat = Chat::where(['user_id'=>$id])
-                        ->select(
-                            "chats.id"
-                        )
                         ->get();
         if ($chat) {
             return response()->json([
