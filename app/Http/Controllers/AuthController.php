@@ -23,7 +23,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:api', ['except' => ['login','register','admin']]);
     }
 
     /**
@@ -265,4 +265,5 @@ class AuthController extends Controller
             "error" => "not found"
         ],Response::HTTP_NOT_FOUND);
     }
+    
 }
