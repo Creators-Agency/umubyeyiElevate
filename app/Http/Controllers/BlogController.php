@@ -11,7 +11,7 @@ class BlogController extends Controller
 {
      public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['fetch','index']]);
+        $this->middleware('auth:api', ['except' => ['fetch','index,list']]);
     }
     /**
      * Display a listing of the resource.
