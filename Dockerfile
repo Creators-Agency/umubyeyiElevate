@@ -11,4 +11,4 @@ COPY .env $APP_DIR/.env
 RUN composer update
 EXPOSE 8181
 
-CMD ["bash", "-c", "php artisan key:generate && php artisan migrate && php artisan serve  --host=0.0.0.0 --port=8181"]
+CMD ["bash", "-c", "php artisan key:generate && php artisan jwt:secret && php artisan migrate && php artisan serve  --host=0.0.0.0 --port=8181"]

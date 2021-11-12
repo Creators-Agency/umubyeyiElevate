@@ -1,13 +1,13 @@
 version: '3.8'
 services:
   umubyeyi:
-    image: umubyeyi
+    image: umubyeyi-backend
     ports:
       - "9009:8181"
     depends_on:
       - db
     networks:
-      - umubyeyi
+      - umubyeyibackend-net
     restart: always
 
   db:
@@ -22,10 +22,10 @@ services:
     #   - dbdata_umubyeyi:/var/lib/mysql
       # - ./data/schema.sql:/docker-entrypoint-initdb.d/schema.sql
     networks: 
-      - umubyeyi
+      - umubyeyibackend-net
 
 networks: 
-  umubyeyi:
+  umubyeyibackend-net:
     external: false
 
 # volumes:
